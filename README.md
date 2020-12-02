@@ -20,6 +20,12 @@ lives under the `test/<year>/support/` directory.
 | 1   | 🌟     | 🌟     |
 | 2   | 🌟     | 🌟     |
 
+### 2017
+
+| Day | Part 1 | Part 2 |
+| :-: | :----: | :----: |
+| 1   | 🌟     |        |
+
 ### 2015
 
 | Day | Part 1 | Part 2 |
