@@ -1,4 +1,4 @@
-# 🎄⚗️ [Advent of Code](https://adventofcode.com/) solutions in [Elixir](https://elixir-lang.org/)
+# 🎄 [Advent of Code](https://adventofcode.com/) solutions in [Elixir](https://elixir-lang.org/) ⚗️
 
 My personal solutions to AoC challenges in Elixir.
 
