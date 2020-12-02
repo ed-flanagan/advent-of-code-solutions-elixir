@@ -4,56 +4,32 @@ defmodule Advent.Y2020.D02 do
 
   @spec part_one(entries :: Enumerable.t()) :: integer()
   def part_one(entries) do
-    for entry <- entries,
-        %{"min" => min_bin, "max" => max_bin, "char" => char_bin, "password" => password} =
-          Regex.named_captures(@entry_match, entry),
-        reduce: 0 do
-      num_valid ->
-        # Convert string matches to proper forms
-        min = String.to_integer(min_bin)
-        max = String.to_integer(max_bin)
-        char = char_bin |> to_charlist |> List.first()
+    map_entries(entries)
+    |> Enum.count(fn {min, max, char, chars} ->
+      char_occur = Enum.count(chars, &(&1 == char))
 
-        # Resolve the frequency of the given character
-        num_chars =
-          password
-          |> to_charlist
-          |> Enum.frequencies()
-          |> Map.get(char, 0)
-
-        # if Enum.member?(min..max, num_chars) do
-        if min <= num_chars && num_chars <= max do
-          num_valid + 1
-        else
-          num_valid
-        end
-    end
+      min <= char_occur && char_occur <= max
+    end)
   end
 
   def part_two(entries) do
-    for entry <- entries,
-        %{"min" => min_bin, "max" => max_bin, "char" => char_bin, "password" => password} =
-          Regex.named_captures(@entry_match, entry),
-        reduce: 0 do
-      num_valid ->
-        # Convert string matches to proper forms
-        i = String.to_integer(min_bin)
-        j = String.to_integer(max_bin)
-        char = char_bin |> to_charlist |> List.first()
-        pwd = password |> to_charlist
+    map_entries(entries)
+    |> Enum.count(fn {min, max, char, chars} ->
+      char_at_min = char == Enum.at(chars, min - 1)
+      char_at_max = char == Enum.at(chars, max - 1)
 
-        # True if exactly one of the positions was the character
-        # xor exclusive disjunction
-        # https://en.wikipedia.org/wiki/Exclusive_or#Equivalences,_elimination,_and_introduction
-        pwd_i = Enum.at(pwd, i - 1) == char
-        pwd_j = Enum.at(pwd, j - 1) == char
-        char_xor = (pwd_i && !pwd_j) || (!pwd_i && pwd_j)
+      # True if exactly one of the positions was the character
+      # xor exclusive disjunction
+      (char_at_min && !char_at_max) || (!char_at_min && char_at_max)
+    end)
+  end
 
-        if char_xor do
-          num_valid + 1
-        else
-          num_valid
-        end
-    end
+  defp map_entries(entries) do
+    Enum.map(entries, fn entry ->
+      %{"min" => min, "max" => max, "char" => char, "password" => password} =
+        Regex.named_captures(@entry_match, entry)
+
+      {String.to_integer(min), String.to_integer(max), char, String.graphemes(password)}
+    end)
   end
 end
