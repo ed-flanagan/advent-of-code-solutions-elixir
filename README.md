@@ -11,7 +11,7 @@ For example, the solution for 2020's day 1 is
 Each solution is tested for the example and puzzle input. Each day's input file
 lives under the `test/<year>/support/` directory.
 
-## Completion matrix
+## Completion matrices
 
 ### 2020
 
