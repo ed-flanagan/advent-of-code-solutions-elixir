@@ -1,21 +1,20 @@
-# Advent
+# [Advent of Code](https://adventofcode.com/) solutions in [Elixir](https://elixir-lang.org/)
 
-**TODO: Add description**
+My personal solutions to AoC challenges in Elixir.
 
-## Installation
+## Usage
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `advent` to your list of dependencies in `mix.exs`:
+Solutions and test are structured by year and day.
+For example, the solution for 2020's day 1 is
+`lib/advent/y2020/01_report_repair.ex` and its respective test is
+`test/y2020/01_report_repair_test.exs`.
+Each solution is tested for the example and puzzle input. Each day's input file
+lives under the `test/<year>/support/` directory.
 
-```elixir
-def deps do
-  [
-    {:advent, "~> 0.1.0"}
-  ]
-end
-```
+## Completion matrix
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/advent](https://hexdocs.pm/advent).
+### 2020
 
+| Day | Part 1 | Part 2 |
+| :-: | :----: | :----: |
+| 1   | 🌟     | 🌟     |
