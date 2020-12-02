@@ -1,4 +1,4 @@
-defmodule Advent.Y2020.D01Test do
+defmodule Advent.Y2017.D01Test do
   use ExUnit.Case
 
   alias Advent.Y2017.D01
