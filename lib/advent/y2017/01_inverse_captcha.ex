@@ -1,8 +1,7 @@
 defmodule Advent.Y2017.D01 do
   @spec part_one(input :: String.t()) :: integer()
   def part_one(input) do
-    input
-    |> (&(&1 <> String.first(&1))).()
+    (input <> String.first(input))
     |> String.graphemes()
     |> Enum.map(&String.to_integer/1)
     |> sum_pairs
