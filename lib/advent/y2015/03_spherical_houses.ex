@@ -1,21 +1,15 @@
 defmodule Advent.Y2015.D03 do
   @spec part_one(input :: charlist()) :: integer()
   def part_one(directions) do
-    directions
-    |> deliver_presents
-    |> MapSet.size()
+    directions |> deliver_presents() |> MapSet.size()
   end
 
   @spec part_two(input :: charlist()) :: integer()
   def part_two(directions) do
-    santa_steps = directions |> Enum.take_every(2)
-    robo_steps = directions |> tl() |> Enum.take_every(2)
+    santa_seen = directions |> Enum.take_every(2) |> deliver_presents()
+    robo_seen = directions |> tl() |> Enum.take_every(2) |> deliver_presents()
 
-    santa_seen = deliver_presents(santa_steps)
-    robo_seen = deliver_presents(robo_steps)
-
-    total_seen = MapSet.union(santa_seen, robo_seen)
-    MapSet.size(total_seen)
+    MapSet.union(santa_seen, robo_seen) |> MapSet.size()
   end
 
   defp deliver_presents(steps) do
