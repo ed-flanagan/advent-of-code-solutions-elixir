@@ -1,4 +1,4 @@
-# [Advent of Code](https://adventofcode.com/) solutions in [Elixir](https://elixir-lang.org/)
+# 🎄⚗️ [Advent of Code](https://adventofcode.com/) solutions in [Elixir](https://elixir-lang.org/)
 
 My personal solutions to AoC challenges in Elixir.
 
@@ -18,3 +18,11 @@ lives under the `test/<year>/support/` directory.
 | Day | Part 1 | Part 2 |
 | :-: | :----: | :----: |
 | 1   | 🌟     | 🌟     |
+| 2   | 🌟     | 🌟     |
+
+### 2015
+
+| Day | Part 1 | Part 2 |
+| :-: | :----: | :----: |
+| 1   | 🌟     | 🌟     |
+| 2   | 🌟     | 🌟     |
