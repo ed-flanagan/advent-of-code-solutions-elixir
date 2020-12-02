@@ -1,10 +1,12 @@
 defmodule Advent.Y2015.D03 do
   @spec part_one(input :: charlist()) :: integer()
   def part_one(directions) do
-    seen = deliver_presents(directions)
-    MapSet.size(seen)
+    directions
+    |> deliver_presents
+    |> MapSet.size()
   end
 
+  @spec part_two(input :: charlist()) :: integer()
   def part_two(directions) do
     santa_steps = directions |> Enum.take_every(2)
     robo_steps = directions |> tl() |> Enum.take_every(2)
@@ -16,35 +18,22 @@ defmodule Advent.Y2015.D03 do
     MapSet.size(total_seen)
   end
 
-  @spec deliver_presents(steps :: charlist()) :: MapSet.t()
   defp deliver_presents(steps) do
     do_deliver_presents(steps, MapSet.new([{0, 0}]), {0, 0})
   end
 
-  @spec do_deliver_presents(
-          steps :: charlist(),
-          seen :: MapSet.t(),
-          pos :: tuple()
-        ) :: MapSet.t()
   defp do_deliver_presents([], seen, _pos), do: seen
 
-  defp do_deliver_presents([?^ | tail], seen, {x, y}) do
-    pos = {x, y + 1}
-    do_deliver_presents(tail, MapSet.put(seen, pos), pos)
-  end
+  defp do_deliver_presents([dir | tail], seen, {x, y}) do
+    pos =
+      case dir do
+        ?^ -> {x, y + 1}
+        ?v -> {x, y - 1}
+        ?> -> {x + 1, y}
+        ?< -> {x - 1, y}
+        _ -> {x, y}
+      end
 
-  defp do_deliver_presents([?v | tail], seen, {x, y}) do
-    pos = {x, y - 1}
-    do_deliver_presents(tail, MapSet.put(seen, pos), pos)
-  end
-
-  defp do_deliver_presents([?> | tail], seen, {x, y}) do
-    pos = {x + 1, y}
-    do_deliver_presents(tail, MapSet.put(seen, pos), pos)
-  end
-
-  defp do_deliver_presents([?< | tail], seen, {x, y}) do
-    pos = {x - 1, y}
     do_deliver_presents(tail, MapSet.put(seen, pos), pos)
   end
 end
