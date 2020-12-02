@@ -25,8 +25,18 @@ defmodule Advent.Y2020.D01Test do
     end
   end
 
-  defp puzzle_input!() do
+  @doc """
+  Expects file contents to be integer values seperated by a newline, e.g.
+
+  1721
+  979
+  366
+  """
+  # @spec stream_input_file!(filename :: Path.t()) :: Enumerable.t()
+  def puzzle_input!() do
     Path.join([__DIR__, "support", "01_input.txt"])
-    |> D01.stream_input_file!()
+    |> File.stream!()
+    |> Stream.map(&String.trim/1)
+    |> Stream.map(&String.to_integer/1)
   end
 end
