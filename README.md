@@ -1,6 +1,11 @@
 # 🎄 [Advent of Code](https://adventofcode.com/) solutions in [Elixir](https://elixir-lang.org/) ⚗️
 
-My personal solutions to AoC challenges in Elixir.
+My personal solutions to AoC puzzles, in Elixir.
+
+I'm brand new to Elixir, so this is largely practice for me. My solutions are
+likely not the best examples of "good" Elixir. If you see anything particularly
+egregious or have a cool way to improve a solution, feel free to submit an
+issue or pull request.
 
 ## Usage
 
