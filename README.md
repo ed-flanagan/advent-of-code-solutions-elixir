@@ -24,7 +24,7 @@ lives under the `test/<year>/support/` directory.
 
 | Day | Part 1 | Part 2 |
 | :-: | :----: | :----: |
-| 1   | 🌟     |        |
+| 1   | 🌟     | 🌟     |
 
 ### 2015
 

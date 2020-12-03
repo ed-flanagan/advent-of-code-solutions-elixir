@@ -7,6 +7,28 @@ defmodule Advent.Y2017.D01 do
     |> sum_pairs
   end
 
+  @spec part_two(input :: String.t()) :: integer()
+  def part_two(input) do
+    nums =
+      input
+      |> String.graphemes()
+      |> Enum.map(&String.to_integer/1)
+
+    rotated_nums =
+      nums
+      |> Enum.split(Enum.count(nums) |> div(2))
+      |> Tuple.to_list()
+      |> Enum.reverse()
+      |> List.flatten()
+
+    [nums, rotated_nums]
+    |> List.zip()
+    |> Enum.reduce(0, fn
+      {x, x}, sum -> sum + x
+      _, sum -> sum
+    end)
+  end
+
   defp sum_pairs(list), do: do_sum_pairs(list, 0)
 
   defp do_sum_pairs([], sum), do: sum
