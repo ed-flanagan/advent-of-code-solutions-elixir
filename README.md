@@ -35,3 +35,10 @@ lives under the `test/<year>/support/` directory.
 | 2   | 🌟     | 🌟     |
 | 3   | 🌟     | 🌟     |
 | 4   | 🌟     | 🌟     |
+
+## License
+
+This project is licensed under the
+[MIT License](https://choosealicense.com/licenses/mit/). See the
+[LICENSE](https://github.com/ed-flanagan/advent-of-code-solutions-elixir/blob/main/LICENSE)
+file for more details.
