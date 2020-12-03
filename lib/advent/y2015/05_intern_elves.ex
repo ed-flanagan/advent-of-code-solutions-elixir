@@ -34,38 +34,37 @@ defmodule Advent.Y2015.D05 do
     end)
   end
 
+  # 1. Unfold the letters into overlapping pairs, e.g.
+  #    "abcd" -> [{"a", "b"}, {"b", "c"}, {"c", "d}]
+  # 2. Unfold overlapping duplicates, e.g.
+  #    "aaa" -> [{"a", "a"}, {"a", "a"}] -> [{"a", "a"}]
+  #    "aaaa" -> [{"a", "a"}, {"a", "a"}, {"a", "a"}] -> [{"a", "a"}, {"a", "a"}]
+  #    * Both unfolds were originally functions, but wanted to try unfold
+  #      also saved some lines
+  # 3. Count the frequencies of all pairs
+  #   * You could use Enum.reduce_while to halt once a pair is found. However,
+  #     I felt the frequencies() + any?() combo was cleaner. I also imagine
+  #     any short-circuit gains are negligible with small input
+  # 4. Return if there are any frequencies >= 2
   defp has_repeat_pairs(letters) do
     letters
-    |> gen_pairs()
-    |> dedup_overlaps()
+    |> Stream.unfold(fn
+      [a, b | tail] -> {{a, b}, [b | tail]}
+      _ -> nil
+    end)
+    |> Enum.to_list()
+    |> Stream.unfold(fn
+      [a, a | tail] -> {a, tail}
+      [a | tail] -> {a, tail}
+      _ -> nil
+    end)
     |> Enum.frequencies()
     |> Map.values()
     |> Enum.any?(&(&1 >= 2))
   end
 
-  # gen_pairs
-  defp gen_pairs(list), do: do_gen_pairs(list, [])
-
-  defp do_gen_pairs([a, b | tail], pairs) do
-    do_gen_pairs([b | tail], [{a, b} | pairs])
-  end
-
-  defp do_gen_pairs(_, pairs), do: pairs
-
-  # dedup_overlaps
-  defp dedup_overlaps(pairs), do: do_dedup_overlaps(pairs, [])
-  defp do_dedup_overlaps([], new), do: new
-
-  defp do_dedup_overlaps([a, a | tail], new) do
-    do_dedup_overlaps(tail, [a | new])
-  end
-
-  defp do_dedup_overlaps([a | tail], new) do
-    do_dedup_overlaps(tail, [a | new])
-  end
-
   # has_sandwich
-  defp has_sandwich([]), do: false
   defp has_sandwich([a, _b, a | _tail]), do: true
   defp has_sandwich([_head | tail]), do: has_sandwich(tail)
+  defp has_sandwich(_), do: false
 end
