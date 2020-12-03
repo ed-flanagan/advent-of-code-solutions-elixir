@@ -40,6 +40,7 @@ lives under the `test/<year>/support/` directory.
 | 2   | 🌟     | 🌟     |
 | 3   | 🌟     | 🌟     |
 | 4   | 🌟     | 🌟     |
+| 5   | 🌟     | 🌟     |
 
 ## License
 
