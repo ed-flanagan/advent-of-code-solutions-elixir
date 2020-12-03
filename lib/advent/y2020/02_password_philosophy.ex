@@ -1,5 +1,5 @@
 defmodule Advent.Y2020.D02 do
-  # e.g., '2-10 b: abba
+  # e.g., '2-10 b: abba'
   @entry_match ~r/(?<min>\d+)\-(?<max>\d+) (?<char>[a-z]): (?<password>[a-z]+)/
 
   @spec part_one(entries :: Enumerable.t()) :: integer()
@@ -24,8 +24,9 @@ defmodule Advent.Y2020.D02 do
     end)
   end
 
+  # Extract and "cast" the captures from the regex
   defp map_entries(entries) do
-    Enum.map(entries, fn entry ->
+    Stream.map(entries, fn entry ->
       %{"min" => min, "max" => max, "char" => char, "password" => password} =
         Regex.named_captures(@entry_match, entry)
 
