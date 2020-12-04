@@ -25,6 +25,7 @@ lives under the `test/<year>/support/` directory.
 | 1   | 🌟     | 🌟     |
 | 2   | 🌟     | 🌟     |
 | 3   | 🌟     | 🌟     |
+| 4   | 🌟     | 🌟     |
 
 ### 2017
 
