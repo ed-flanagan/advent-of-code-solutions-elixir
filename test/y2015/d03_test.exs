@@ -1,15 +1,15 @@
-defmodule Advent.Y2015.D02Test do
+defmodule Advent.Y2015.D03Test do
   use ExUnit.Case
 
-  alias Advent.Y2015.D02
-  import D02, only: [part_one: 1, part_two: 1]
+  alias Advent.Y2015.D03
+  import D03, only: [part_one: 1, part_two: 1]
 
   describe "part_one/1" do
     test "solves example input" do
       examples = [
-        {["4x3x2"], 58},
-        {["1x10x1"], 43},
-        {["2x3x4", "1x1x10"], 101}
+        {'>', 2},
+        {'^>v<', 4},
+        {'^v^v^v^v^v', 2}
       ]
 
       Enum.each(examples, fn {input, expected} ->
@@ -18,16 +18,16 @@ defmodule Advent.Y2015.D02Test do
     end
 
     test "solves puzzle input" do
-      assert 1_598_415 == part_one(puzzle_input!())
+      assert 2592 == part_one(puzzle_input!())
     end
   end
 
   describe "part_two/1" do
     test "solves example input" do
       examples = [
-        {["4x3x2"], 34},
-        {["1x10x1"], 14},
-        {["2x3x4", "1x1x10"], 48}
+        {'^v', 3},
+        {'^>v<', 3},
+        {'^v^v^v^v^v', 11}
       ]
 
       Enum.each(examples, fn {input, expected} ->
@@ -36,13 +36,17 @@ defmodule Advent.Y2015.D02Test do
     end
 
     test "solves puzzle input" do
-      assert 3_812_909 == part_two(puzzle_input!())
+      assert 2360 == part_two(puzzle_input!())
     end
   end
 
+  # Converts the first line into a charlist
   defp puzzle_input!() do
-    Path.join([__DIR__, "support", "02_input.txt"])
+    Path.join([__DIR__, "support", "d03_input.txt"])
     |> File.stream!()
     |> Stream.map(&String.trim/1)
+    |> Enum.take(1)
+    |> List.first()
+    |> to_charlist
   end
 end

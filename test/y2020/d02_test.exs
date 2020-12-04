@@ -30,7 +30,7 @@ defmodule Advent.Y2020.D02Test do
   end
 
   defp puzzle_input() do
-    Path.join([__DIR__, "support", "02_input.txt"])
+    Path.join([__DIR__, "support", "d02_input.txt"])
     |> File.stream!()
     |> Stream.map(&String.trim/1)
   end

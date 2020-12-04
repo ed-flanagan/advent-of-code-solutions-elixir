@@ -53,7 +53,7 @@ defmodule Advent.Y2015.D05Test do
   end
 
   defp puzzle_input!() do
-    Path.join([__DIR__, "support", "05_input.txt"])
+    Path.join([__DIR__, "support", "d05_input.txt"])
     |> File.stream!()
     |> Stream.map(&String.trim/1)
   end

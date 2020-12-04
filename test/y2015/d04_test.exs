@@ -26,11 +26,15 @@ defmodule Advent.Y2015.D04Test do
 
   describe "part_two/2" do
     test "solves puzzle input" do
-      assert 3_938_038 == part_two("ckczppom", 4_000_000)
+      assert 3_938_038 == part_two(puzzle_input!(), 4_000_000)
     end
 
     test "limit works" do
       assert :error == part_two("deadbeef", 5)
     end
+  end
+
+  defp puzzle_input!() do
+    "ckczppom"
   end
 end

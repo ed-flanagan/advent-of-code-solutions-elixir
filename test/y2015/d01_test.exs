@@ -45,7 +45,7 @@ defmodule Advent.Y2015.D01Test do
   end
 
   defp puzzle_input() do
-    Path.join([__DIR__, "support", "01_input.txt"])
+    Path.join([__DIR__, "support", "d01_input.txt"])
     |> File.stream!()
     |> Stream.map(&String.trim/1)
     |> Enum.take(1)
