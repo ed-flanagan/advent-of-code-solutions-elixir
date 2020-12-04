@@ -2,19 +2,18 @@
 
 My personal solutions to AoC puzzles, in Elixir.
 
-I'm brand new to Elixir, so this is largely practice for me. My solutions are
-likely not the best examples of "good" Elixir. If you see anything particularly
-egregious or have a cool way to improve a solution, feel free to submit an
-issue or pull request.
+*Caveat:* I'm brand new to Elixir, so this is largely practice for me. My
+solutions are likely not the best examples of "good" Elixir. If you see
+anything particularly egregious or have a cool way to improve a solution, feel
+free to submit an issue.
 
 ## Usage
 
-Solutions and test are structured by year and day.
-For example, the solution for 2020's day 1 is
-`lib/advent/y2020/01_report_repair.ex` and its respective test is
-`test/y2020/01_report_repair_test.exs`.
-Each solution is tested for the example and puzzle input. Each day's input file
-lives under the `test/<year>/support/` directory.
+Solutions and tests are structured by year and day.
+For example, the solution for 2020's day 1 is `lib/advent/y2020/d01.ex` and
+its respective test is `test/y2020/d01_test.exs`. If a puzzle had an input
+file you'll find it under a test `support` directory, e.g.
+`test/y2020/support/d01_input.txt`.
 
 ## Completion matrices
 
