@@ -3,7 +3,7 @@
 # cool, no regex needed, but feels very... blocky? 
 
 defmodule Advent.Y2020.D04 do
-  @valid_ecls ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
+  @valid_ecls MapSet.new(["amb", "blu", "brn", "gry", "grn", "hzl", "oth"])
 
   def(part_one(entries)) do
     entries
@@ -71,13 +71,12 @@ defmodule Advent.Y2020.D04 do
     |> Stream.chunk_while(
       [],
       fn
-        # NOTE: we don't _need_ to reverse, but it's in the spirit of order
-        "", passport -> {:cont, Enum.reverse(passport), []}
+        "", passport -> {:cont, passport, []}
         line, passport -> {:cont, [line | passport]}
       end,
       fn
         [] -> {:cont, []}
-        passport -> {:cont, Enum.reverse(passport), []}
+        passport -> {:cont, passport, []}
       end
     )
     |> Stream.map(&Enum.join(&1, " "))
