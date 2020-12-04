@@ -30,17 +30,13 @@ defmodule Advent.Y2020.D04 do
         ecl: ecl,
         pid: <<pid::binary-size(9)>>
       } ->
-        with {byr, ""} <- Integer.parse(byr),
-             true <- 1920 <= byr && byr <= 2002,
-             {iyr, ""} <- Integer.parse(iyr),
-             true <- 2010 <= iyr && iyr <= 2020,
-             {eyr, ""} <- Integer.parse(eyr),
-             true <- 2020 <= eyr && eyr <= 2030,
-             true <- valid_hgt(hgt),
-             {:ok, _} <- hcl |> String.upcase(:ascii) |> Base.decode16(),
-             true <- ecl in @valid_ecls,
-             {_pid, ""} <- Integer.parse(pid) do
-          true
+        with {:ok, _} <- hcl |> String.upcase(:ascii) |> Base.decode16(),
+             {_pid, ""} <- pid |> Integer.parse() do
+          inbetween(byr, 1920..2002) &&
+            inbetween(iyr, 2010..2020) &&
+            inbetween(eyr, 2020..2030) &&
+            valid_hgt(hgt) &&
+            ecl in @valid_ecls
         else
           _ -> false
         end
@@ -50,29 +46,26 @@ defmodule Advent.Y2020.D04 do
     end)
   end
 
-  defp valid_hgt(hgt) do
-    case hgt do
-      <<hgt::binary-size(3), "cm">> ->
-        with {hgt, ""} <- Integer.parse(hgt),
-             true <- 150 <= hgt && hgt <= 193 do
-          true
-        else
-          _ -> false
-        end
+  defp valid_hgt(<<hgt::binary-size(3), "cm">>), do: inbetween(hgt, 150..193)
+  defp valid_hgt(<<hgt::binary-size(2), "in">>), do: inbetween(hgt, 59..76)
+  defp valid_hgt(_), do: false
 
-      <<hgt::binary-size(2), "in">> ->
-        with {hgt, ""} <- Integer.parse(hgt),
-             true <- 59 <= hgt && hgt <= 76 do
-          true
-        else
-          _ -> false
-        end
+  defp inbetween(val, min..max) when is_integer(val) and val in min..max, do: true
 
-      _ ->
-        false
+  defp inbetween(val, min..max) when is_bitstring(val) do
+    case Integer.parse(val) do
+      {val, ""} -> inbetween(val, min..max)
+      _ -> false
     end
   end
 
+  defp inbetween(_, _), do: false
+
+  # 1. Chunk lines until there's an empty line
+  # 2. Join lines together
+  # 3. Split string by " " and ":", which should result in alternating key/values
+  # 4. Chunk every 2, pairing elements together
+  # 5. Create a map from the paired elements
   defp stream_passports(entries) do
     entries
     |> Stream.chunk_while(
