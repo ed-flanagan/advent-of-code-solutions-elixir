@@ -5,7 +5,7 @@
 defmodule Advent.Y2020.D04 do
   @valid_ecls MapSet.new(["amb", "blu", "brn", "gry", "grn", "hzl", "oth"])
 
-  def(part_one(entries)) do
+  def part_one(entries) do
     entries
     |> stream_passports()
     |> Enum.count(fn
