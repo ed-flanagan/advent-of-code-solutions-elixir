@@ -1,39 +1,35 @@
 defmodule Advent.Y2020.D05 do
   use Bitwise, only_operators: true
 
+  @spec part_one(passes :: Enumerable.t(String.t())) :: integer
   def part_one(passes) do
-    highest_id(passes)
+    passes
+    |> Stream.map(&seat_id/1)
+    |> Enum.max()
   end
 
+  @spec part_two(passes :: Enumerable.t(String.t())) :: integer | nil
   def part_two(passes) do
-    find_middle_seat(passes)
+    passes
+    |> Stream.map(&seat_id/1)
+    |> Enum.sort()
+    |> find_middle_seat()
   end
 
-  defp find_middle_seat(passes) do
-    passes |> sorted_ids() |> do_find_middle_seat()
+  defp seat_id(partition) do
+    partition
+    |> String.graphemes()
+    |> Enum.reduce(0, fn
+      "B", sum -> sum <<< 1 ||| 1
+      "R", sum -> sum <<< 1 ||| 1
+      _, sum -> sum <<< 1
+    end)
   end
 
-  # Relies on the list to be sorted
-  defp do_find_middle_seat([a, b | _tail]) when b - a == 2, do: a + 1
-  defp do_find_middle_seat([_a, b | tail]), do: do_find_middle_seat([b | tail])
-  defp do_find_middle_seat(_), do: nil
-
-  defp sorted_ids(passes) do
-    passes |> Stream.map(&seat_id/1) |> Enum.sort()
-  end
-
-  defp highest_id(passes) do
-    passes |> Stream.map(&seat_id/1) |> Enum.max()
-  end
-
-  defp seat_id(pass) do
-    {row, col} = boarding_pass_coords(pass)
-    row * 8 + col
-  end
-
-  defp boarding_pass_coords(<<row::binary-size(7), col::binary-size(3)>>) do
-    {partition_to_coord(row), partition_to_coord(col)}
-  end
+  # Assumes the list is sorted
+  defp find_middle_seat([a, b | _tail]) when b - a == 2, do: a + 1
+  defp find_middle_seat([_a, b | tail]), do: find_middle_seat([b | tail])
+  defp find_middle_seat(_), do: nil
 
   # F, B, R, L represent bits.
   # B = R = 1
@@ -47,16 +43,6 @@ defmodule Advent.Y2020.D05 do
   #    approach
   # 3. Maps the string characters to 1/0 respectively then uses to_integer
   #    with base 2
-
-  defp partition_to_coord(partition) do
-    partition
-    |> String.graphemes()
-    |> Enum.reduce(0, fn
-      "B", sum -> sum <<< 1 ||| 1
-      "R", sum -> sum <<< 1 ||| 1
-      _, sum -> sum <<< 1
-    end)
-  end
 
   # defp partition_to_coord(partition) do
   #   partition

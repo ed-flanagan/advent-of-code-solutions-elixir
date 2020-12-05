@@ -9,7 +9,7 @@ defmodule Advent.Y2020.D04 do
     entries
     |> stream_passports()
     |> Enum.count(fn
-      %{byr: _, iyr: _, eyr: _, hgt: _, hcl: _, ecl: _, pid: _} ->
+      %{"byr" => _, "iyr" => _, "eyr" => _, "hgt" => _, "hcl" => _, "ecl" => _, "pid" => _} ->
         true
 
       _ ->
@@ -22,13 +22,13 @@ defmodule Advent.Y2020.D04 do
     |> stream_passports()
     |> Enum.count(fn
       %{
-        byr: <<byr::binary-size(4)>>,
-        iyr: <<iyr::binary-size(4)>>,
-        eyr: <<eyr::binary-size(4)>>,
-        hgt: hgt,
-        hcl: <<"#", hcl::binary-size(6)>>,
-        ecl: ecl,
-        pid: <<pid::binary-size(9)>>
+        "byr" => <<byr::binary-size(4)>>,
+        "iyr" => <<iyr::binary-size(4)>>,
+        "eyr" => <<eyr::binary-size(4)>>,
+        "hgt" => hgt,
+        "hcl" => <<"#", hcl::binary-size(6)>>,
+        "ecl" => ecl,
+        "pid" => <<pid::binary-size(9)>>
       } ->
         with {:ok, _} <- hcl |> String.upcase(:ascii) |> Base.decode16(),
              {_pid, ""} <- pid |> Integer.parse() do
@@ -82,6 +82,6 @@ defmodule Advent.Y2020.D04 do
     |> Stream.map(&Enum.join(&1, " "))
     |> Stream.map(&String.split(&1, [" ", ":"], trim: true))
     |> Stream.map(&Enum.chunk_every(&1, 2))
-    |> Stream.map(&Map.new(&1, fn [k, v] -> {String.to_atom(k), v} end))
+    |> Stream.map(&Map.new(&1, fn [k, v] -> {k, v} end))
   end
 end
