@@ -42,8 +42,7 @@ defmodule Advent.Y2020.D05 do
     partition
     |> String.graphemes()
     |> Enum.reduce(0, fn c, sum ->
-      sum = sum <<< 1
-      if c == "B" || c == "R", do: sum ||| 1, else: sum
+      sum <<< 1 ||| if c == "B" || c == "R", do: 1, else: 0
     end)
   end
 
