@@ -26,6 +26,7 @@ file you'll find it under a test `support` directory, e.g.
 | 3   | 🌟     | 🌟     |
 | 4   | 🌟     | 🌟     |
 | 5   | 🌟     | 🌟     |
+| 6   | 🌟     | 🌟     |
 
 ### 2017
 
