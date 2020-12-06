@@ -74,10 +74,7 @@ defmodule Advent.Y2020.D04 do
         "", passport -> {:cont, passport, []}
         line, passport -> {:cont, [line | passport]}
       end,
-      fn
-        [] -> {:cont, []}
-        passport -> {:cont, passport, []}
-      end
+      &{:cont, &1, []}
     )
     |> Stream.map(&Enum.join(&1, " "))
     |> Stream.map(&String.split(&1, [" ", ":"], trim: true))
