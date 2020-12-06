@@ -8,65 +8,47 @@ defmodule Advent.Y2020.D05 do
     |> Enum.max()
   end
 
+  # NOTE: this strategy assumes there is exactly one missing id within a
+  # contiguous set of ids
   @spec part_two(passes :: Enumerable.t(String.t())) :: integer | nil
   def part_two(passes) do
     passes
     |> Stream.map(&seat_id/1)
-    |> Enum.sort()
-    |> find_middle_seat()
-  end
+    |> Enum.reduce({:infinity, -1, 0}, fn id, {min, max, sum} ->
+      min = if id < min, do: id, else: min
+      max = if id > max, do: id, else: max
+      sum = sum ^^^ id
 
-  defp seat_id(partition) do
-    partition
-    |> String.graphemes()
-    |> Enum.reduce(0, fn
-      "B", sum -> sum <<< 1 ||| 1
-      "R", sum -> sum <<< 1 ||| 1
-      _, sum -> sum <<< 1
+      {min, max, sum}
     end)
-  end
+    |> (fn {min, max, sum} ->
+          sum ^^^ Enum.reduce(min..max, 0, &(&1 ^^^ &2))
+        end).()
 
-  # Assumes the list is sorted
-  defp find_middle_seat([a, b | _tail]) when b - a == 2, do: a + 1
-  defp find_middle_seat([_a, b | tail]), do: find_middle_seat([b | tail])
-  defp find_middle_seat(_), do: nil
+    # NOTE: this strategy will return the first empty seat and nil if none.
+    # However, it requires sorting, so less efficient, but above requires an
+    # assumption
+    # |> Enum.sort()
+    # |> find_middle_seat()
+  end
 
   # F, B, R, L represent bits.
   # B = R = 1
   # F = L = 0
-  # I'm not sure on what's the "best" approach, so I left the 3 that I came up
-  # with. I left the Bitwise one uncommented since I think it's the fanciest.
-  # 1. Uses Bitwise and relies that the partitions will be F/B and R/L
-  #    exclusive. For each character, shift the sum by one. Then OR 1 at the
-  #    new end. This builds out the coordinate integer value
-  # 2. Takes the same approach as 1, but uses the ol' sum powers together
-  #    approach
-  # 3. Maps the string characters to 1/0 respectively then uses to_integer
-  #    with base 2
+  # I'm not sure on what's the "best" approach, so I went with the Bitwise
+  # version, which _felt_ fanciest. Constructing single bit bitstring might be
+  # more efficient, but don't know
+  defp seat_id(partition) do
+    partition
+    |> String.graphemes()
+    |> Enum.reduce(0, fn c, sum ->
+      sum = sum <<< 1
+      if c == "B" || c == "R", do: sum ||| 1, else: sum
+    end)
+  end
 
-  # defp partition_to_coord(partition) do
-  #   partition
-  #   |> String.graphemes()
-  #   |> Enum.reverse()
-  #   |> Enum.with_index()
-  #   |> Enum.reduce(0, fn
-  #     {"B", i}, sum -> sum + :math.pow(2, i)
-  #     {"R", i}, sum -> sum + :math.pow(2, i)
-  #     _, sum -> sum
-  #   end)
-  # end
-
-  # defp partition_to_coord(<<row::binary-size(7)>>) do
-  #   row
-  #   |> String.replace("B", "1")
-  #   |> String.replace("F", "0")
-  #   |> String.to_integer(2)
-  # end
-
-  # defp partition_to_coord(<<col::binary-size(3)>>) do
-  #   col
-  #   |> String.replace("R", "1")
-  #   |> String.replace("L", "0")
-  #   |> String.to_integer(2)
-  # end
+  # Assumes the list is sorted
+  # defp find_middle_seat([a, b | _tail]) when b - a == 2, do: a + 1
+  # defp find_middle_seat([_a, b | tail]), do: find_middle_seat([b | tail])
+  # defp find_middle_seat(_), do: nil
 end
