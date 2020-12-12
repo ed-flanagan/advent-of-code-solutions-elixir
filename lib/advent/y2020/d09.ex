@@ -52,7 +52,8 @@ defmodule Advent.Y2020.D09 do
   end
 
   defp do_find_contiguous_range(target, values, range, sum) when sum > target do
-    do_find_contiguous_range(target, (range |> Enum.reverse() |> tl()) ++ values, [], 0)
+    trunc_values = range |> Enum.reverse() |> tl() |> Enum.concat(values)
+    do_find_contiguous_range(target, trunc_values, [], 0)
   end
 
   defp do_find_contiguous_range(_target, [], _range, _sum), do: []
