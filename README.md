@@ -30,6 +30,7 @@ file you'll find it under a test `support` directory, e.g.
 | 7   | 🌟     | 🌟     |
 | 8   | 🌟     | 🌟     |
 | 9   | 🌟     | 🌟     |
+| 10  | 🌟     |        |
 
 ### 2017
 
