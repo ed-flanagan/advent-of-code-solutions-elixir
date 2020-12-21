@@ -31,7 +31,7 @@ file you'll find it under a test `support` directory, e.g.
 | 8   | 🌟     | 🌟     |
 | 9   | 🌟     | 🌟     |
 | 10  | 🌟     |        |
-| 11  |        |        |
+| 11  | 🌟     |        |
 | 12  | 🌟     | 🌟     |
 
 ### 2017
