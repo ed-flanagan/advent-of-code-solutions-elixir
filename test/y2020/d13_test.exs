@@ -4,10 +4,7 @@ defmodule Advent.Y2020.D13Test do
   alias Advent.Y2020.D13
   import D13, only: [part_one: 1, part_two: 1]
 
-  @example [
-    "939",
-    "7,13,x,x,59,x,31,19"
-  ]
+  @example ~w(939 7,13,x,x,59,x,31,19)
 
   describe "part_one/1" do
     test "solves example input" do
