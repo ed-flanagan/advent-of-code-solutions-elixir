@@ -17,7 +17,7 @@ file you'll find it under a test `support` directory, e.g.
 
 ## Completion matrix
 
-* ⭐ just part 1
+* ⭐ just part one
 * 🌟 both parts
 
 | Day | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 |
@@ -36,7 +36,7 @@ file you'll find it under a test `support` directory, e.g.
 | 12  |      |      |      |      |      | 🌟   |
 | 13  |      |      |      |      |      | ⭐   |
 | 14  |      |      |      |      |      | ⭐   |
-| 15  |      |      |      |      |      |      |
+| 15  |      |      |      |      |      | 🌟   |
 | 16  |      |      |      |      |      |      |
 | 17  |      |      |      |      |      |      |
 | 18  |      |      |      |      |      |      |
