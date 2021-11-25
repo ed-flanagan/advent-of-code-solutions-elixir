@@ -1,29 +1,71 @@
 defmodule Advent.Y2020.D01 do
+  @moduledoc """
+  https://adventofcode.com/2020/day/1
+  """
+
   @target 2020
 
-  # 2SUM
-  @spec part_one(values :: Enumerable.t()) :: integer()
+  @doc """
+  Find the two entries that sum to 2020; what do you get if you multiply them
+  together?
+  """
+  @spec part_one(Enumerable.t()) :: integer()
   def part_one(values) do
-    Enum.reduce_while(values, MapSet.new(), fn a, acc ->
-      if MapSet.member?(acc, @target - a) do
-        {:halt, a * (@target - a)}
-      else
-        {:cont, MapSet.put(acc, a)}
-      end
-    end)
+    {a, b} =
+      values
+      |> Enum.to_list()
+      |> two_sum(@target)
+
+    a * b
   end
 
-  # 3SUM
-  # NOTE: this approach doesn't prevent finding the same value again, i.e.
-  # a + 2b is a possible.
-  @spec part_two(values :: Enumerable.t()) :: integer()
+  @doc """
+  What is the product of the three entries that sum to 2020?
+  """
+  @spec part_two(Enumerable.t()) :: integer()
   def part_two(values) do
-    Enum.reduce_while(values, MapSet.new(), fn a, acc ->
-      Enum.find(acc, &MapSet.member?(acc, @target - (a + &1)))
-      |> case do
-        nil -> {:cont, MapSet.put(acc, a)}
-        b -> {:halt, a * b * (@target - (a + b))}
-      end
-    end)
+    {a, b, c} =
+      values
+      |> Enum.to_list()
+      |> three_sum(@target)
+
+    a * b * c
+  end
+
+  @spec two_sum([integer()], integer()) :: {integer(), integer()} | nil
+  defp two_sum(values, target) do
+    do_two_sum(values, target, MapSet.new())
+  end
+
+  @spec do_two_sum([integer()], integer(), MapSet.t()) :: {integer(), integer()} | nil
+  defp do_two_sum([], _target, _seen), do: nil
+
+  defp do_two_sum([b | rest], target, seen) do
+    a = target - b
+
+    if a in seen do
+      {a, b}
+    else
+      do_two_sum(rest, target, MapSet.put(seen, b))
+    end
+  end
+
+  @spec three_sum([integer()], integer()) :: {integer(), integer(), integer()} | nil
+  def three_sum(values, target) do
+    do_three_sum(values, target, MapSet.new())
+  end
+
+  @spec do_three_sum([integer()], integer(), MapSet.t()) ::
+          {integer(), integer(), integer()} | nil
+  defp do_three_sum([], _taget, _seen), do: nil
+
+  defp do_three_sum(values, target, seen) do
+    [b | rest] = values
+    t = target - b
+
+    case do_two_sum(rest, t, seen) do
+      {a, c} -> {a, b, c}
+      _ -> do_three_sum(rest, target, MapSet.put(seen, b))
+    end
   end
 end

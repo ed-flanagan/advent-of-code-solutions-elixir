@@ -32,7 +32,7 @@ defmodule Advent.Y2020.D01Test do
   979
   366
   """
-  # @spec stream_input_file!(filename :: Path.t()) :: Enumerable.t()
+  @spec puzzle_input!() :: Enumerable.t()
   def puzzle_input!() do
     Path.join([__DIR__, "support", "d01_input.txt"])
     |> File.stream!()
