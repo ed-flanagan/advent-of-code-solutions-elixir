@@ -3,70 +3,94 @@ defmodule Advent.Y2020.D08 do
   https://adventofcode.com/2020/day/8
   """
 
+  @typep instruction :: {:nop | :acc | :jmp, integer()}
+  @typep line_no :: non_neg_integer()
+  @typep instructions :: %{line_no() => instruction()}
+
+  @doc """
+  What value is in the accumulator?
+  """
+  @spec part_one(Enumerable.t()) :: integer()
   def part_one(input) do
-    input
-    |> map_instructions()
-    |> execute()
-    |> case do
-      {_status, acc, _remaining} -> acc
-    end
+    {:loop, acc} =
+      input
+      |> map_instructions()
+      |> execute()
+
+    acc
   end
 
+  @doc """
+  What is the value of the accumulator after the program terminates?
+  """
+  @spec part_two(Enumerable.t()) :: integer()
   def part_two(input) do
     input
     |> map_instructions()
     |> no_cycle_execute()
   end
 
+  @spec map_instructions(Enumerable.t()) :: instructions()
   defp map_instructions(lines) do
     lines
     |> Stream.map(fn line ->
-      [cmd, val] = String.split(line, " ")
-      {cmd, String.to_integer(val)}
+      [cmd_str, val_str] = String.split(line, " ")
+
+      cmd =
+        case cmd_str do
+          "nop" -> :nop
+          "jmp" -> :jmp
+          "acc" -> :acc
+        end
+
+      val = String.to_integer(val_str)
+
+      {cmd, val}
     end)
     |> Stream.with_index()
-    |> Enum.into(%{}, fn {instruction, line_no} -> {line_no, instruction} end)
+    |> Map.new(fn {ins, lno} -> {lno, ins} end)
   end
 
+  @spec execute(instructions()) :: {:ok | :loop, integer()}
   defp execute(lines) do
     do_execute(lines, 0, 0, map_size(lines))
   end
 
-  defp do_execute(lines, line_no, acc, size) when line_no >= size do
-    {:ok, acc, lines}
+  @spec do_execute(instructions(), line_no(), non_neg_integer(), non_neg_integer()) ::
+          {:ok | :loop, integer()}
+  defp do_execute(_lines, line_no, acc, size) when line_no >= size do
+    {:ok, acc}
   end
 
   defp do_execute(lines, line_no, acc, size) do
     case Map.pop(lines, line_no) do
-      {{"nop", _val}, lines} -> do_execute(lines, line_no + 1, acc, size)
-      {{"acc", val}, lines} -> do_execute(lines, line_no + 1, acc + val, size)
-      {{"jmp", val}, lines} -> do_execute(lines, line_no + val, acc, size)
-      {nil, _lines} -> {:loop, acc, lines}
+      {{:nop, _val}, lines} -> do_execute(lines, line_no + 1, acc, size)
+      {{:acc, val}, lines} -> do_execute(lines, line_no + 1, acc + val, size)
+      {{:jmp, val}, lines} -> do_execute(lines, line_no + val, acc, size)
+      {nil, _lines} -> {:loop, acc}
     end
   end
 
+  @spec no_cycle_execute(instructions()) :: integer()
   defp no_cycle_execute(instructions) do
     case execute(instructions) do
-      {:ok, acc, _remaining} ->
+      {:ok, acc} ->
         acc
 
-      {:loop, _acc, remaining} ->
-        # https://erlang.org/doc/efficiency_guide/retired_myths.html#myth--list-subtraction-------operator--is-slow
-        for {lno, ins} <- Map.take(instructions, Map.keys(instructions) -- Map.keys(remaining)),
-            match?({"nop", _}, ins) || match?({"jmp", _}, ins) do
-          case ins do
-            {"nop", val} -> {lno, {"jmp", val}}
-            {"jmp", val} -> {lno, {"nop", val}}
-          end
-        end
-        |> Enum.reduce_while(nil, fn {line_no, instruction}, acc ->
-          Map.put(instructions, line_no, instruction)
-          |> execute()
-          |> case do
-            {:ok, val, _remaining} -> {:halt, val}
-            _ -> {:cont, acc}
-          end
+      {:loop, _acc} ->
+        Enum.find_value(instructions, fn
+          {lno, {:nop, val}} -> exec_flip(instructions, {lno, {:jmp, val}})
+          {lno, {:jmp, val}} -> exec_flip(instructions, {lno, {:nop, val}})
+          _ -> nil
         end)
+    end
+  end
+
+  @spec exec_flip(instructions(), {line_no(), instruction()}) :: integer() | nil
+  defp exec_flip(ins, {lno, flip}) do
+    case execute(%{ins | lno => flip}) do
+      {:ok, val} -> val
+      _ -> nil
     end
   end
 end
