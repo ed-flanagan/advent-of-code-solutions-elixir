@@ -1,4 +1,8 @@
 defmodule Advent.Y2020.D03 do
+  @moduledoc """
+  https://adventofcode.com/2020/day/3
+  """
+
   @spec part_one(rows :: Enumerable.t(String.t())) :: integer
   def part_one(rows) do
     count_trees(rows, 3, 1)

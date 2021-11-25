@@ -1,4 +1,8 @@
 defmodule Advent.Y2015.D05 do
+  @moduledoc """
+  https://adventofcode.com/2015/day/5
+  """
+
   @min_vowels 3
   @vowels ["a", "e", "i", "o", "u"]
 

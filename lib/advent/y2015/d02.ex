@@ -1,4 +1,8 @@
 defmodule Advent.Y2015.D02 do
+  @moduledoc """
+  https://adventofcode.com/2015/day/2
+  """
+
   @doc """
   * Map the dimensions into the total area needed.
     The slack area is computed using the smallest two surfaces. We rely on

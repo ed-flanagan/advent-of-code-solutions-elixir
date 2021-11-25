@@ -3,6 +3,10 @@
 # cool, no regex needed, but feels very... blocky? 
 
 defmodule Advent.Y2020.D04 do
+  @moduledoc """
+  https://adventofcode.com/2020/day/4
+  """
+
   @valid_ecls MapSet.new(["amb", "blu", "brn", "gry", "grn", "hzl", "oth"])
 
   def part_one(entries) do

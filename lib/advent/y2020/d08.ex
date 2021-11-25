@@ -1,4 +1,8 @@
 defmodule Advent.Y2020.D08 do
+  @moduledoc """
+  https://adventofcode.com/2020/day/8
+  """
+
   def part_one(input) do
     input
     |> map_instructions()

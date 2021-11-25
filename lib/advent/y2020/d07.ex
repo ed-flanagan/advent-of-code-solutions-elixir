@@ -1,4 +1,8 @@
 defmodule Advent.Y2020.D07 do
+  @moduledoc """
+  https://adventofcode.com/2020/day/7
+  """
+
   @rule_split_on [" bags contain ", " bag, ", " bags, ", " bag.", " bags."]
 
   ##########

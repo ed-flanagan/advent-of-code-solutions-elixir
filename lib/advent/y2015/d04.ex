@@ -1,4 +1,8 @@
 defmodule Advent.Y2015.D04 do
+  @moduledoc """
+  https://adventofcode.com/2015/day/4
+  """
+
   def part_one(key, limit) do
     brute_search_md5_pad(0..limit, key, "00000")
   end

@@ -1,4 +1,8 @@
 defmodule Advent.Y2020.D06 do
+  @moduledoc """
+  https://adventofcode.com/2020/day/6
+  """
+
   def part_one(answers) do
     reduce_groups(answers, MapSet.new(), &MapSet.union/2)
   end

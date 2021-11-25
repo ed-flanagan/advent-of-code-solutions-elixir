@@ -1,4 +1,8 @@
 defmodule Advent.Y2020.D13 do
+  @moduledoc """
+  https://adventofcode.com/2020/day/13
+  """
+
   def part_one(input) do
     {earliest, ids} =
       input

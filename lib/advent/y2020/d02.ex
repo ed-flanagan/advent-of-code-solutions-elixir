@@ -1,4 +1,8 @@
 defmodule Advent.Y2020.D02 do
+  @moduledoc """
+  https://adventofcode.com/2020/day/2
+  """
+
   # e.g., '2-10 b: abba'
   @entry_match ~r/(?<min>\d+)\-(?<max>\d+) (?<char>[a-z]): (?<password>[a-z]+)/
 

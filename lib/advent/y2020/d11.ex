@@ -1,4 +1,8 @@
 defmodule Advent.Y2020.D11 do
+  @moduledoc """
+  https://adventofcode.com/2020/day/11
+  """
+
   def part_one(input) do
     input
     |> init_grid()

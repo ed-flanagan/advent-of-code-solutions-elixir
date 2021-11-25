@@ -1,4 +1,8 @@
 defmodule Advent.Y2015.D03 do
+  @moduledoc """
+  https://adventofcode.com/2015/day/3
+  """
+
   @spec part_one(input :: charlist()) :: integer()
   def part_one(directions) do
     directions |> deliver_presents() |> MapSet.size()

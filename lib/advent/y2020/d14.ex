@@ -1,4 +1,8 @@
 defmodule Advent.Y2020.D14 do
+  @moduledoc """
+  https://adventofcode.com/2020/day/14
+  """
+
   use Bitwise, only_operators: true
 
   @mem_match ~r/mem\[(?<addr>\d+)\]\s+=\s+(?<val>\d+)/
@@ -22,7 +26,6 @@ defmodule Advent.Y2020.D14 do
     |> elem(0)
     |> Map.values()
     |> Enum.sum()
-    |> IO.inspect()
   end
 
   defp combo_mask(mask) do

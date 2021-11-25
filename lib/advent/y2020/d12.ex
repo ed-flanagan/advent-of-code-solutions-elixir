@@ -1,4 +1,8 @@
 defmodule Advent.Y2020.D12 do
+  @moduledoc """
+  https://adventofcode.com/2020/day/12
+  """
+
   def part_one(input) do
     input
     |> Stream.map(&split_instruction/1)

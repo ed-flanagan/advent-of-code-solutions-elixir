@@ -1,4 +1,8 @@
 defmodule Advent.Y2015.D01 do
+  @moduledoc """
+  https://adventofcode.com/2015/day/1
+  """
+
   @spec part_one(input :: charlist()) :: integer()
   def part_one(input) do
     Enum.reduce(input, 0, fn

@@ -1,4 +1,8 @@
 defmodule Advent.Y2017.D01 do
+  @moduledoc """
+  https://adventofcode.com/2017/day/1
+  """
+
   @spec part_one(input :: String.t()) :: integer()
   def part_one(input) do
     (input <> String.first(input))
