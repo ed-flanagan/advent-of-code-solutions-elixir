@@ -25,7 +25,7 @@ defmodule Advent.Y2020.D09 do
         {:cont, [next | buffer]}
 
       next, buffer ->
-        if twosum(next, buffer) do
+        if two_sum(buffer, next) do
           {:cont, [next | buffer |> Enum.reverse() |> tl() |> Enum.reverse()]}
         else
           {:halt, next}
@@ -33,17 +33,19 @@ defmodule Advent.Y2020.D09 do
     end)
   end
 
-  defp twosum(target, vals) do
-    do_twosum(target, vals, MapSet.new())
+  @spec two_sum([integer()], integer()) :: boolean()
+  defp two_sum(vals, target) do
+    do_two_sum(vals, target, MapSet.new())
   end
 
-  defp do_twosum(_target, [], _seen), do: false
+  @spec do_two_sum([integer()], integer(), MapSet.t()) :: boolean()
+  defp do_two_sum([], _target, _seen), do: false
 
-  defp do_twosum(target, [x | tail], seen) do
+  defp do_two_sum([x | tail], target, seen) do
     if (target - x) in seen do
       true
     else
-      do_twosum(target, tail, MapSet.put(seen, x))
+      do_two_sum(tail, target, MapSet.put(seen, x))
     end
   end
 
