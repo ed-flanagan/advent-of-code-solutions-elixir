@@ -1,28 +1,38 @@
 defmodule Advent.Y2020.D05 do
-  use Bitwise, only_operators: true
+  @moduledoc """
+  https://adventofcode.com/2020/day/5
+  """
 
-  @spec part_one(passes :: Enumerable.t(String.t())) :: integer
+  use Bitwise
+
+  @doc """
+  What is the highest seat ID on a boarding pass?
+  """
+  @spec part_one(passes :: Enumerable.t()) :: integer()
   def part_one(passes) do
     passes
     |> Stream.map(&seat_id/1)
     |> Enum.max()
   end
 
+  @doc """
+  What is the ID of your seat?
+  """
   # NOTE: this strategy assumes there is exactly one missing id within a
   # contiguous set of ids
-  @spec part_two(passes :: Enumerable.t(String.t())) :: integer | nil
+  @spec part_two(passes :: Enumerable.t()) :: integer() | nil
   def part_two(passes) do
     passes
     |> Stream.map(&seat_id/1)
     |> Enum.reduce({:infinity, -1, 0}, fn id, {min, max, sum} ->
       min = if id < min, do: id, else: min
       max = if id > max, do: id, else: max
-      sum = sum ^^^ id
+      sum = bxor(sum, id)
 
       {min, max, sum}
     end)
     |> (fn {min, max, sum} ->
-          sum ^^^ Enum.reduce(min..max, 0, &(&1 ^^^ &2))
+          bxor(sum, Enum.reduce(min..max, 0, &bxor/2))
         end).()
 
     # NOTE: this strategy will return the first empty seat and nil if none.
