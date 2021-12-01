@@ -11,8 +11,6 @@ defmodule Advent.MixProject do
     ]
   end
 
-  def application, do: []
-
   defp deps do
     [
       # {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
