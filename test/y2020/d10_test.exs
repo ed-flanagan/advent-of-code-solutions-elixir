@@ -23,6 +23,7 @@ defmodule Advent.Y2020.D10Test do
   end
 
   describe "part_two/1" do
+    @tag :skip
     test "solves example input" do
       examples = [
         {8, ~w(16 10 15 5 1 11 7 19 6 12 4)},
@@ -35,8 +36,9 @@ defmodule Advent.Y2020.D10Test do
       end)
     end
 
+    @tag :skip
     test "solves puzzle input" do
-      # IO.inspect parg_two(puzzle_input!())
+      assert part_two(puzzle_input!()) == 0
     end
   end
 

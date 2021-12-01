@@ -27,12 +27,14 @@ defmodule Advent.Y2020.D11Test do
   end
 
   describe "part_two/1" do
+    @tag :skip
     test "solves example input" do
       assert 26 == part_one(@example)
     end
 
+    @tag :skip
     test "solves puzzle input" do
-      # IO.inspect part_two(puzzle_input!())
+      assert part_two(puzzle_input!()) == 0
     end
   end
 
