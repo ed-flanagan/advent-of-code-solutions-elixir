@@ -10,7 +10,7 @@ defmodule Advent.Y2019.D01 do
     |> Enum.sum()
   end
 
-  @spec part_one(Enumerable.t()) :: integer()
+  @spec part_two(Enumerable.t()) :: integer()
   def part_two(input) do
     input
     |> Stream.map(fn mass ->
