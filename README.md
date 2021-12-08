@@ -15,6 +15,23 @@ its respective test is `test/y2020/d01_test.exs`. If a puzzle had an input
 file you'll find it under a test `support` directory, e.g.
 `test/y2020/support/d01_input.txt`.
 
+### Generate code scaffold for a given day
+
+You can generate a scaffold for a given day by running:
+
+```
+mix advent.template <YYYY> <dd>
+```
+
+For example, `mix advent.template 2021 7` will generate
+
+* `lib/advent/y2021/d07.ex`. Has two empty functions `part_one/1` and
+  `part_two/1`
+* `test/advent/y2021/d07_test.exs`. Has 4 unit tests, 2 for each part. Each
+  part has one for example input and another for file input
+* `test/advent/y2021/support/d07_input.txt`. An empty file to copy/paste your
+  puzzle input into
+
 ## Completion matrix
 
 * ⭐ just part one

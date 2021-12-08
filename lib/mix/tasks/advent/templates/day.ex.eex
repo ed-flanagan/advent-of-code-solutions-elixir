@@ -1,0 +1,19 @@
+defmodule Advent.Y<%= year %>.D<%= day_padded %> do
+  @moduledoc """
+  https://adventofcode.com/<%= year %>/day/<%= day %>
+  """
+
+  @doc """
+  """
+  @spec part_one(any()) :: any()
+  def part_one(_input) do
+    0
+  end
+
+  @doc """
+  """
+  @spec part_two(any()) :: any()
+  def part_two(_input) do
+    0
+  end
+end
