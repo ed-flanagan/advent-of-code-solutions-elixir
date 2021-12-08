@@ -23,18 +23,34 @@ defmodule Advent.Y2021.D07 do
   """
   @spec part_two([integer()]) :: integer()
   def part_two(input) do
-    Enum.reduce_while(Enum.min(input)..Enum.max(input), :infinity, fn m, lowest ->
-      result =
-        Enum.reduce(input, 0, fn x, acc ->
-          acc + sum_consecutive_ints(abs(x - m))
-        end)
+    part_two_fuzzy_avg(input)
+  end
 
-      if result > lowest do
-        {:halt, lowest}
-      else
-        {:cont, result}
-      end
+  # defp part_two_brute_force(input) do
+  #   Enum.reduce_while(Enum.min(input)..Enum.max(input), :infinity, fn m, lowest ->
+  #     result =
+  #       Enum.reduce(input, 0, fn x, acc ->
+  #         acc + sum_consecutive_ints(abs(x - m))
+  #       end)
+  #
+  #     if result > lowest do
+  #       {:halt, lowest}
+  #     else
+  #       {:cont, result}
+  #     end
+  #   end)
+  # end
+
+  @spec part_two_fuzzy_avg([integer()]) :: integer()
+  defp part_two_fuzzy_avg(input) do
+    avg = round(mean(input))
+
+    Enum.map((avg - 1)..(avg + 1), fn m ->
+      Enum.reduce(input, 0, fn x, acc ->
+        acc + sum_consecutive_ints(abs(x - m))
+      end)
     end)
+    |> Enum.min()
   end
 
   @spec median([integer()]) :: integer()
@@ -42,6 +58,11 @@ defmodule Advent.Y2021.D07 do
     vals
     |> Enum.sort()
     |> Enum.at(div(length(vals), 2))
+  end
+
+  @spec mean([integer()]) :: float()
+  defp mean(vals) do
+    Enum.sum(vals) / length(vals)
   end
 
   @spec sum_consecutive_ints(pos_integer()) :: pos_integer()
