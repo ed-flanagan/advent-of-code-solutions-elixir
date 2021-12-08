@@ -21,22 +21,22 @@ defmodule Advent.Y2021.D06 do
     map_solution(seed, days)
   end
 
-  @spec list_solution([integer()], integer()) :: integer()
-  defp list_solution(seed, days) do
-    Stream.iterate(seed, fn fish ->
-      num_spawning_fish = Enum.count(fish, &(&1 == 0))
-
-      fish =
-        Enum.map(fish, fn
-          0 -> 6
-          n -> n - 1
-        end)
-
-      fish ++ List.duplicate(8, num_spawning_fish)
-    end)
-    |> Enum.at(days)
-    |> length()
-  end
+  # @spec list_solution([integer()], integer()) :: integer()
+  # defp list_solution(seed, days) do
+  #   Stream.iterate(seed, fn fish ->
+  #     num_spawning_fish = Enum.count(fish, &(&1 == 0))
+  #
+  #     fish =
+  #       Enum.map(fish, fn
+  #         0 -> 6
+  #         n -> n - 1
+  #       end)
+  #
+  #     fish ++ List.duplicate(8, num_spawning_fish)
+  #   end)
+  #   |> Enum.at(days)
+  #   |> length()
+  # end
 
   defp map_solution(seed, days) do
     fish = Enum.frequencies(seed)
