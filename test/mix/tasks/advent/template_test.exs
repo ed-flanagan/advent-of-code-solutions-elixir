@@ -25,7 +25,7 @@ defmodule Mix.Tasks.Advent.TemplateTest do
         Path.join([@support_dir, "template_expected_lib_output.ex"]) |> File.read()
 
       {:ok, expected_test_contents} =
-        Path.join([@support_dir, "template_expected_test_output.ex"]) |> File.read()
+        Path.join([@support_dir, "template_expected_test_output.exs"]) |> File.read()
 
       expected_input_contents = ""
 

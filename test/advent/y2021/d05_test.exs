@@ -32,7 +32,7 @@ defmodule Advent.Y2021.D05Test do
     end
 
     test "solves puzzle input" do
-      assert part_two(puzzle_input!()) == 20299
+      assert part_two(puzzle_input!()) == 20_299
     end
   end
 
