@@ -43,9 +43,9 @@ defmodule Advent.Y2021.D07 do
 
   @spec part_two_fuzzy_avg([integer()]) :: integer()
   defp part_two_fuzzy_avg(input) do
-    avg = round(mean(input))
+    avg = mean(input)
 
-    Enum.map((avg - 1)..(avg + 1), fn m ->
+    Enum.map(floor(avg)..ceil(avg), fn m ->
       Enum.reduce(input, 0, fn x, acc ->
         acc + sum_consecutive_ints(abs(x - m))
       end)
@@ -66,7 +66,7 @@ defmodule Advent.Y2021.D07 do
   end
 
   @spec sum_consecutive_ints(pos_integer()) :: pos_integer()
-  defp sum_consecutive_ints(n) do
-    trunc(n * (n + 1) / 2)
+  defp sum_consecutive_ints(n) when n >= 0 do
+    div(n * (n + 1), 2)
   end
 end
