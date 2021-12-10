@@ -5,7 +5,7 @@ defmodule Advent.Y1970.D01Test do
 
   @example_input []
 
-  describe "part_one/1" do
+  describe "part_one" do
     @tag :skip
     test "solves example input" do
       assert part_one(@example_input) == 0
@@ -17,7 +17,7 @@ defmodule Advent.Y1970.D01Test do
     end
   end
 
-  describe "part_one/2" do
+  describe "part_two" do
     @tag :skip
     test "solves example input" do
       assert part_two(@example_input) == 0

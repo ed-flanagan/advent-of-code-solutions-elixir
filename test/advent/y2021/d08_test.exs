@@ -16,7 +16,7 @@ defmodule Advent.Y2021.D08Test do
     "gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce"
   ]
 
-  describe "part_one/1" do
+  describe "part_one" do
     test "solves example input" do
       assert part_one(@example_input) == 26
     end
@@ -26,7 +26,7 @@ defmodule Advent.Y2021.D08Test do
     end
   end
 
-  describe "part_one/2" do
+  describe "part_two" do
     test "solves example input" do
       assert part_two(@example_input) == 61_229
     end

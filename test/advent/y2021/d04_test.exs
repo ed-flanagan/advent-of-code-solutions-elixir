@@ -25,7 +25,7 @@ defmodule Advent.Y2021.D04Test do
     "2  0 12  3  7"
   ]
 
-  describe "part_one/1" do
+  describe "part_one" do
     test "solves example input" do
       assert part_one(@example_input) == 4512
     end
@@ -35,7 +35,7 @@ defmodule Advent.Y2021.D04Test do
     end
   end
 
-  describe "part_one/2" do
+  describe "part_two" do
     test "solves example input" do
       assert part_two(@example_input) == 1924
     end

@@ -12,7 +12,7 @@ defmodule Advent.Y2021.D02Test do
     "forward 2"
   ]
 
-  describe "part_one/1" do
+  describe "part_one" do
     test "solves example input" do
       assert D02.part_one(@example_input) == 150
     end
@@ -22,7 +22,7 @@ defmodule Advent.Y2021.D02Test do
     end
   end
 
-  describe "part_one/2" do
+  describe "part_two" do
     test "solves example input" do
       assert D02.part_two(@example_input) == 900
     end
