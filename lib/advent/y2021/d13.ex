@@ -44,15 +44,15 @@ defmodule Advent.Y2021.D13 do
   def print_part_two(feed) do
     feed
     |> Enum.map(fn line ->
-      (line
-       |> String.graphemes()
-       |> Enum.map(fn
-         "#" -> IO.ANSI.green() <> "#"
-         "." -> IO.ANSI.black() <> "."
-       end)
-       |> Enum.join()) <> IO.ANSI.reset()
+      line
+      |> String.graphemes()
+      |> Enum.map(fn
+        "#" -> IO.ANSI.format([:green_background, :green, "#"])
+        "." -> IO.ANSI.format([:black_background, :black, "."])
+      end)
+      |> Enum.join()
     end)
-    |> Enum.each(&IO.puts(IO.ANSI.format([:black_background, &1])))
+    |> Enum.each(&IO.puts/1)
   end
 
   @spec parse_input(Enumerable.t()) :: {MapSet.t(), [fold()]}
