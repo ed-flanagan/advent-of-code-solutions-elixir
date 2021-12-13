@@ -3,8 +3,6 @@ defmodule Advent.Y2021.D13 do
   https://adventofcode.com/2021/day/13
   """
 
-  @typep paper :: MapSet.t()
-
   @typep fold :: {:x | :y, non_neg_integer()}
 
   @doc """
@@ -15,81 +13,73 @@ defmodule Advent.Y2021.D13 do
   def part_one(input) do
     {paper, [instruction | _rest]} = parse_input(input)
 
-    fold(paper, instruction)
+    paper
+    |> fold(instruction)
     |> MapSet.size()
   end
 
   @doc """
   What code do you use to activate the infrared thermal imaging camera system?
   """
-  @spec part_two(Enumerable.t()) :: any()
+  @spec part_two(Enumerable.t()) :: [String.t()]
   def part_two(input) do
     {paper, instructions} = parse_input(input)
 
-    final =
+    paper =
       Enum.reduce(instructions, paper, fn instruction, paper ->
         fold(paper, instruction)
       end)
 
-    {x_min, x_max} = final |> Enum.map(&elem(&1, 0)) |> Enum.min_max()
-    {y_min, y_max} = final |> Enum.map(&elem(&1, 1)) |> Enum.min_max()
+    {{x_min, _}, {x_max, _}} = Enum.min_max_by(paper, &elem(&1, 0))
+    {{_, y_min}, {_, y_max}} = Enum.min_max_by(paper, &elem(&1, 1))
 
     for y <- y_min..y_max do
       for x <- x_min..x_max, into: "" do
-        if MapSet.member?(final, {x, y}), do: "#", else: "."
+        if MapSet.member?(paper, {x, y}), do: "#", else: "."
       end
     end
   end
 
-  @spec parse_input(Enumerable.t()) :: {paper(), [fold()]}
+  @spec parse_input(Enumerable.t()) :: {MapSet.t(), [fold()]}
   defp parse_input(input) do
-    input
-    |> Enum.reduce({MapSet.new(), nil}, fn
-      "", {paper, _} ->
-        {paper, []}
+    Enum.reduce(input, {MapSet.new(), []}, fn
+      <<"fold along ", axis, "=", cut::binary>>, {paper, instructions} ->
+        {paper, instructions ++ [{List.to_atom([axis]), String.to_integer(cut)}]}
 
-      line, {paper, nil} ->
-        [x, y] =
-          Regex.run(~r/(\d+),(\d+)/, line, capture: :all_but_first)
-          |> Enum.map(&String.to_integer/1)
+      "", {paper, instructions} ->
+        {paper, instructions}
 
-        {MapSet.put(paper, {x, y}), nil}
-
-      line, {paper, ins} ->
-        [axis, val] = Regex.run(~r/([x|y])=(\d+)/, line, capture: :all_but_first)
-        axis = if axis == "x", do: :x, else: :y
-        val = String.to_integer(val)
-        {paper, ins ++ [{axis, val}]}
+      line, {paper, instructions} ->
+        [x, y] = line |> String.split(",") |> Enum.map(&String.to_integer/1)
+        {MapSet.put(paper, {x, y}), instructions}
     end)
   end
 
-  @spec fold(paper(), fold()) :: paper()
+  @spec fold(MapSet.t(), fold()) :: MapSet.t()
+  # NOTE: would like to find a way to consolidate the `fold/2` functions, but
+  #       haven't found a way I like...
   defp fold(paper, {:x, cut}) do
-    a = paper |> Enum.filter(fn {x, _y} -> x < cut end) |> MapSet.new()
+    {a, b} = Enum.split_with(paper, fn {x, _y} -> x < cut end)
 
     b =
-      paper
-      |> Enum.filter(fn {x, _y} -> x > cut end)
-      |> Enum.map(fn {x, y} ->
-        {transform(x, cut), y}
-      end)
+      b
+      |> Enum.reject(fn {x, _y} -> x == cut end)
+      |> Enum.map(fn {x, y} -> {transform(x, cut), y} end)
       |> MapSet.new()
 
-    MapSet.union(a, b)
+    MapSet.union(MapSet.new(a), b)
   end
 
   defp fold(paper, {:y, cut}) do
-    a = paper |> Enum.filter(fn {_x, y} -> y < cut end) |> MapSet.new()
+    {a, b} = Enum.split_with(paper, fn {_x, y} -> y < cut end)
 
     b =
-      paper
-      |> Enum.filter(fn {_x, y} -> y > cut end)
-      |> Enum.map(fn {x, y} ->
-        {x, transform(y, cut)}
-      end)
+      b
+      |> Enum.reject(fn {_x, y} -> y == cut end)
+      |> Enum.map(fn {x, y} -> {x, transform(y, cut)} end)
       |> MapSet.new()
 
-    MapSet.union(a, b)
+    MapSet.union(MapSet.new(a), b)
   end
 
   @spec transform(integer(), integer()) :: integer()
