@@ -40,6 +40,21 @@ defmodule Advent.Y2021.D13 do
     end
   end
 
+  @spec print_part_two([String.t()]) :: :ok
+  def print_part_two(feed) do
+    feed
+    |> Enum.map(fn line ->
+      (line
+       |> String.graphemes()
+       |> Enum.map(fn
+         "#" -> IO.ANSI.green() <> "#"
+         "." -> IO.ANSI.black() <> "."
+       end)
+       |> Enum.join()) <> IO.ANSI.reset()
+    end)
+    |> Enum.each(&IO.puts(IO.ANSI.format([:black_background, &1])))
+  end
+
   @spec parse_input(Enumerable.t()) :: {MapSet.t(), [fold()]}
   defp parse_input(input) do
     Enum.reduce(input, {MapSet.new(), []}, fn

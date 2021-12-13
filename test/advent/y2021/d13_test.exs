@@ -1,7 +1,9 @@
 defmodule Advent.Y2021.D13Test do
   use ExUnit.Case
 
-  import Advent.Y2021.D13, only: [part_one: 1, part_two: 1]
+  import ExUnit.CaptureIO
+
+  import Advent.Y2021.D13, only: [part_one: 1, part_two: 1, print_part_two: 1]
 
   @example_input [
     "6,10",
@@ -59,6 +61,17 @@ defmodule Advent.Y2021.D13Test do
                "#.#..#..#.#..#.#.#..#....#..#.#..#.#..#",
                "#..#..##..###..#..#.####..##..###...###"
              ]
+    end
+
+    test "prints correctly" do
+      assert capture_io(fn -> print_part_two(part_two(puzzle_input!())) end) == """
+             \e[40m\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[30m.\e[30m.\e[32m#\e[32m#\e[30m.\e[32m#\e[32m#\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[32m#\e[32m#\e[32m#\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[32m#\e[32m#\e[30m.\e[30m.\e[30m.\e[32m#\e[32m#\e[30m.\e[0m\e[0m
+             \e[40m\e[32m#\e[30m.\e[32m#\e[30m.\e[30m.\e[30m.\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[30m.\e[30m.\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[0m\e[0m
+             \e[40m\e[32m#\e[32m#\e[30m.\e[30m.\e[30m.\e[30m.\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[32m#\e[32m#\e[30m.\e[30m.\e[32m#\e[32m#\e[30m.\e[30m.\e[30m.\e[32m#\e[32m#\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[32m#\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[30m.\e[30m.\e[0m\e[0m
+             \e[40m\e[32m#\e[30m.\e[32m#\e[30m.\e[30m.\e[30m.\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[30m.\e[30m.\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[30m.\e[32m#\e[32m#\e[0m\e[0m
+             \e[40m\e[32m#\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[30m.\e[30m.\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[0m\e[0m
+             \e[40m\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[32m#\e[30m.\e[30m.\e[32m#\e[32m#\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[30m.\e[32m#\e[30m.\e[32m#\e[32m#\e[32m#\e[32m#\e[30m.\e[30m.\e[32m#\e[32m#\e[30m.\e[30m.\e[32m#\e[32m#\e[32m#\e[30m.\e[30m.\e[30m.\e[32m#\e[32m#\e[32m#\e[0m\e[0m
+             """
     end
   end
 
