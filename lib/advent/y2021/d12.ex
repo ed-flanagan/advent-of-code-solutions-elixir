@@ -14,7 +14,7 @@ defmodule Advent.Y2021.D12 do
   def part_one(input) do
     input
     |> parse_input()
-    |> count_exits(:single)
+    |> count_exits(1)
   end
 
   @doc """
@@ -24,7 +24,7 @@ defmodule Advent.Y2021.D12 do
   def part_two(input) do
     input
     |> parse_input()
-    |> count_exits(:double)
+    |> count_exits(2)
   end
 
   @spec parse_input(Enumerable.t()) :: cave_system()
@@ -39,49 +39,30 @@ defmodule Advent.Y2021.D12 do
     end)
   end
 
-  @spec count_exits(cave_system(), :single | :double) :: non_neg_integer()
-  defp count_exits(cave_system, :single) do
-    do_count_exits_single(cave_system, "start", MapSet.new(), 0)
+  @spec count_exits(cave_system(), pos_integer()) :: non_neg_integer()
+  defp count_exits(cave_system, max_v) do
+    do_count_exits(cave_system, "start", Map.new(), max_v, 0)
   end
 
-  defp count_exits(cave_system, :double) do
-    do_count_exits_double(cave_system, "start", Map.new(), 0)
-  end
-
-  @spec do_count_exits_single(cave_system(), cave(), MapSet.t(), non_neg_integer()) ::
+  @spec do_count_exits(cave_system(), cave(), map(), pos_integer(), non_neg_integer()) ::
           non_neg_integer()
-  defp do_count_exits_single(_cave_system, "end", _seen, count), do: count + 1
+  defp do_count_exits(_cave_system, "end", _seen, _max_v, count), do: count + 1
 
-  defp do_count_exits_single(cave_system, cave, seen, count) do
-    seen = if is_small_cave(cave), do: MapSet.put(seen, cave), else: seen
-
-    Enum.map(MapSet.difference(cave_system[cave], seen), fn c ->
-      do_count_exits_single(cave_system, c, seen, count)
-    end)
-    |> Enum.sum()
-  end
-
-  @spec do_count_exits_double(cave_system(), cave(), MapSet.t(), non_neg_integer()) ::
-          non_neg_integer()
-  defp do_count_exits_double(_cave_system, "end", _seen, count), do: count + 1
-
-  defp do_count_exits_double(cave_system, cave, seen, count) do
+  defp do_count_exits(cave_system, cave, seen, max_v, count) do
     seen =
-      if is_small_cave(cave) do
-        Map.update(seen, cave, 1, &(&1 + 1))
-      else
-        seen
-      end
+      if is_small_cave(cave),
+        do: Map.update(seen, cave, 1, &(&1 + 1)),
+        else: seen
 
     sub =
-      if Enum.any?(Map.values(seen), &(&1 == 2)) do
-        Map.keys(seen) |> MapSet.new()
-      else
-        MapSet.new()
-      end
+      if Enum.any?(Map.values(seen), &(&1 == max_v)),
+        do: seen |> Map.keys() |> MapSet.new(),
+        else: MapSet.new()
 
-    Enum.map(MapSet.difference(cave_system[cave], sub), fn c ->
-      do_count_exits_double(cave_system, c, seen, count)
+    todo = MapSet.difference(cave_system[cave], sub)
+
+    Enum.map(todo, fn c ->
+      do_count_exits(cave_system, c, seen, max_v, count)
     end)
     |> Enum.sum()
   end
