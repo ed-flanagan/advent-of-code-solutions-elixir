@@ -46,11 +46,10 @@ defmodule Advent.Y2021.D13 do
     |> Enum.map(fn line ->
       line
       |> String.graphemes()
-      |> Enum.map(fn
+      |> Enum.map_join(fn
         "#" -> IO.ANSI.format([:green_background, :green, "#"])
         "." -> IO.ANSI.format([:black_background, :black, "."])
       end)
-      |> Enum.join()
     end)
     |> Enum.each(&IO.puts/1)
   end
