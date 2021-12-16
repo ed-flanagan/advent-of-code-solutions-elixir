@@ -34,7 +34,7 @@ defmodule Advent.Y2021.D09 do
     |> Enum.map(&MapSet.size/1)
     |> Enum.sort(:desc)
     |> Enum.take(3)
-    |> Enum.reduce(&*/2)
+    |> Enum.product()
   end
 
   @spec parse_input(Enumerable.t()) :: grid()
