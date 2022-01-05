@@ -84,7 +84,7 @@ You can read more about `mix test` options
 | 22  |      |      |      |      |      |      |      |
 | 23  |      |      |      |      |      |      |      |
 | 24  |      |      |      |      |      |      |      |
-| 25  |      |      |      |      |      |      |      |
+| 25  |      |      |      |      |      |      | ⭐   |
 
 ## License
 
