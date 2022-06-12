@@ -45,13 +45,20 @@ For example, `mix advent.template 2021 7` will generate
 
 ### Running tests
 
-You can run all tests with `mix test`. However, some of my solutions take an
-order of seconds. So I'd recommend testing something more narrow like a year
-or day. Some other examples would be `mix test test/advent/y2021/` for a whole
-year or `mix test test/advent/y2021/d07_test.exs` for a full day.
+You can run all tests with `mix test`.
+
+However, some of my solutions take an order of seconds. So I recommend testing
+a narrowed scope, e.g. a specific day or year.
+For example: `mix test test/advent/y2021/` tests a specific year and
+`mix test test/advent/y2021/d07_test.exs` tests a specific day.
+
+Further, some tests are tagged as `long_running: true`. These tests typically
+take longer than 10 seconds to complete on my laptop. Tests with this
+tag are excluded by default. To include these tests add
+`--include long_running:true` to your `mix test` command.
 
 You can read more about `mix test` options
-[here](https://hexdocs.pm/mix/1.12/Mix.Tasks.Test.html).
+[here](https://hexdocs.pm/mix/Mix.Tasks.Test.html).
 
 ## Completion matrix
 

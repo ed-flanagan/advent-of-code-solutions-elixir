@@ -26,7 +26,7 @@ defmodule Advent.Y2020.D15Test do
   end
 
   describe "part_two/1" do
-    @tag :skip
+    @tag long_running: true
     test "solves example input" do
       [
         {175_594, [0, 3, 6]},
@@ -37,8 +37,14 @@ defmodule Advent.Y2020.D15Test do
         {18, [3, 2, 1]},
         {362, [3, 1, 2]}
       ]
-      |> Enum.each(fn {expected, input} ->
-        assert expected == part_two(input)
+      |> Task.async_stream(
+        fn {expected, input} ->
+          {expected, part_two(input)}
+        end,
+        timeout: 30 * 1000
+      )
+      |> Enum.each(fn {:ok, {expected, actual}} ->
+        assert actual == expected
       end)
     end
 
