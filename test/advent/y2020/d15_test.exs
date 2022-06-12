@@ -47,7 +47,7 @@ defmodule Advent.Y2020.D15Test do
     end
   end
 
-  defp puzzle_input!() do
+  defp puzzle_input! do
     [__DIR__, "support", "d15_input.txt"]
     |> Path.join()
     |> File.stream!()

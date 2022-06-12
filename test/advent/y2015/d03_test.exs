@@ -41,7 +41,7 @@ defmodule Advent.Y2015.D03Test do
   end
 
   # Converts the first line into a charlist
-  defp puzzle_input!() do
+  defp puzzle_input! do
     Path.join([__DIR__, "support", "d03_input.txt"])
     |> File.stream!()
     |> Stream.map(&String.trim/1)

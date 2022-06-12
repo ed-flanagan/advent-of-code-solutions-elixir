@@ -15,7 +15,7 @@ defmodule Advent.Y2020.D02Test do
     end
 
     test "solves puzzle input" do
-      assert 620 == D02.part_one(puzzle_input())
+      assert 620 == D02.part_one(puzzle_input!())
     end
   end
 
@@ -25,11 +25,11 @@ defmodule Advent.Y2020.D02Test do
     end
 
     test "solves puzzle input" do
-      assert 727 == D02.part_two(puzzle_input())
+      assert 727 == D02.part_two(puzzle_input!())
     end
   end
 
-  defp puzzle_input() do
+  defp puzzle_input! do
     Path.join([__DIR__, "support", "d02_input.txt"])
     |> File.stream!()
     |> Stream.map(&String.trim/1)

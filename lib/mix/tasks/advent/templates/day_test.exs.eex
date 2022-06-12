@@ -30,7 +30,7 @@ defmodule Advent.Y<%= year %>.D<%= day_padded %>Test do
   end
 
   @spec puzzle_input!() :: Enumerable.t()
-  defp puzzle_input!() do
+  defp puzzle_input! do
     Path.join([__DIR__, "support", "d<%= day_padded %>_input.txt"])
     |> File.stream!()
     |> Stream.map(&String.trim/1)

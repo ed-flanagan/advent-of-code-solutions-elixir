@@ -47,7 +47,7 @@ defmodule Advent.Y2021.D16Test do
   end
 
   @spec puzzle_input!() :: Enumerable.t()
-  defp puzzle_input!() do
+  defp puzzle_input! do
     Path.join([__DIR__, "support", "d16_input.txt"])
     |> File.stream!()
     |> Stream.map(&String.trim/1)

@@ -41,7 +41,7 @@ defmodule Advent.Y2021.D21 do
     end)
   end
 
-  defp dice_stream() do
+  defp dice_stream do
     1..100
     |> Stream.cycle()
     |> Stream.chunk_every(3)

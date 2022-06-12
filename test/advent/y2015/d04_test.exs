@@ -34,7 +34,7 @@ defmodule Advent.Y2015.D04Test do
     end
   end
 
-  defp puzzle_input!() do
+  defp puzzle_input! do
     "ckczppom"
   end
 end

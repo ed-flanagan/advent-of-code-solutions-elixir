@@ -1,6 +1,8 @@
 defmodule Mix.Tasks.Advent.TemplateTest do
   use ExUnit.Case, async: true
 
+  alias Mix.Tasks.Advent
+
   @year "1970"
   @day "1"
 
@@ -19,7 +21,7 @@ defmodule Mix.Tasks.Advent.TemplateTest do
 
   describe "run/1" do
     test "expected output" do
-      :ok = Mix.Tasks.Advent.Template.run([@year, @day])
+      :ok = Advent.Template.run([@year, @day])
 
       {:ok, expected_lib_contents} =
         Path.join([@support_dir, "template_expected_lib_output.ex"]) |> File.read()

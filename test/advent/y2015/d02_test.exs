@@ -40,7 +40,7 @@ defmodule Advent.Y2015.D02Test do
     end
   end
 
-  defp puzzle_input!() do
+  defp puzzle_input! do
     Path.join([__DIR__, "support", "d02_input.txt"])
     |> File.stream!()
     |> Stream.map(&String.trim/1)

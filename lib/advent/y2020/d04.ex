@@ -1,6 +1,6 @@
 # So... I honestly don't know if this is overcomplicated or not. It might just
 # because there are so many things to check? In any case, pattern matching is
-# cool, no regex needed, but feels very... blocky? 
+# cool, no regex needed, but feels very... blocky?
 
 defmodule Advent.Y2020.D04 do
   @moduledoc """

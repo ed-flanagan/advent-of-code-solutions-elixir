@@ -23,7 +23,7 @@ defmodule Advent.Y2015.D01Test do
     end
 
     test "solves puzzle input" do
-      assert 138 == D01.part_one(puzzle_input())
+      assert 138 == D01.part_one(puzzle_input!())
     end
   end
 
@@ -40,11 +40,11 @@ defmodule Advent.Y2015.D01Test do
     end
 
     test "solves puzzle input" do
-      assert 1771 == D01.part_two(puzzle_input())
+      assert 1771 == D01.part_two(puzzle_input!())
     end
   end
 
-  defp puzzle_input() do
+  defp puzzle_input! do
     Path.join([__DIR__, "support", "d01_input.txt"])
     |> File.stream!()
     |> Stream.map(&String.trim/1)
