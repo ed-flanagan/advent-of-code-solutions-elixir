@@ -1,7 +1,9 @@
 defmodule Advent.Y2021.D25Test do
   use ExUnit.Case, async: true
 
-  import Advent.Y2021.D25, only: [part_one: 1, part_two: 1]
+  import ExUnit.CaptureIO
+
+  import Advent.Y2021.D25
 
   @example_input [
     "v...>>.vv>",
@@ -35,6 +37,27 @@ defmodule Advent.Y2021.D25Test do
     test "solves puzzle input" do
       assert part_two(puzzle_input!()) == 0
     end
+  end
+
+  test "print_grid" do
+    grid_out =
+      capture_io(fn ->
+        @example_input
+        |> parse_input()
+        |> print_grid()
+      end)
+
+    assert grid_out == """
+           v...>>.vv>
+           .vv>>.vv..
+           >>.>v>...v
+           >>v>>.>.v.
+           v>v.vv.v..
+           >.>>..v...
+           .vv..>.>v.
+           v.v..>>v.v
+           ....v..v.>
+           """
   end
 
   @spec puzzle_input!() :: Enumerable.t()

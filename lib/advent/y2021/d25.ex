@@ -3,7 +3,13 @@ defmodule Advent.Y2021.D25 do
   https://adventofcode.com/2021/day/25
   """
 
+  @typep direction :: :> | :v
+  @typep coord :: {integer(), integer()}
+  @typep grid :: %{coord() => direction()}
+
   @doc """
+  Find somewhere safe to land your submarine. What is the first step on which
+  no sea cucumbers move?
   """
   @spec part_one(Enumerable.t()) :: non_neg_integer()
   def part_one(input) do
@@ -24,7 +30,7 @@ defmodule Advent.Y2021.D25 do
     0
   end
 
-  defp parse_input(input) do
+  def parse_input(input) do
     grid =
       input
       |> Stream.with_index()
@@ -87,9 +93,11 @@ defmodule Advent.Y2021.D25 do
     {grid, {max_x, max_y}}
   end
 
-  defp print_grid({grid, {max_x, max_y}}) do
-    IO.puts("")
-
+  @doc """
+  Print a given grid
+  """
+  @spec print_grid({grid(), coord()}) :: :ok
+  def print_grid({grid, {max_x, max_y}}) do
     for y <- 0..max_y do
       for x <- 0..max_x, into: "" do
         case Map.get(grid, {x, y}) do
@@ -101,7 +109,5 @@ defmodule Advent.Y2021.D25 do
     end
     |> Enum.join("\n")
     |> IO.puts()
-
-    IO.puts("")
   end
 end
