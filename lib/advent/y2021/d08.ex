@@ -60,7 +60,7 @@ defmodule Advent.Y2021.D08 do
     by_size =
       signals
       |> Enum.group_by(&MapSet.size/1)
-      |> Map.map(fn {_, seqs} -> Enum.uniq(seqs) end)
+      |> Map.new(fn {key, seqs} -> {key, Enum.uniq(seqs)} end)
 
     # unique
     [one] = by_size[2]

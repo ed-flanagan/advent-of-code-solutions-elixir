@@ -52,7 +52,7 @@ defmodule Advent.Y2021.D11 do
 
   @spec step(grid()) :: {non_neg_integer(), grid()}
   defp step(grid) do
-    grid = Map.map(grid, fn {_, e} -> rem(e + 1, 10) end)
+    grid = Map.new(grid, fn {k, e} -> {k, rem(e + 1, 10)} end)
 
     {flash_points, num_flashes} =
       Enum.reduce(grid, {[], 0}, fn
