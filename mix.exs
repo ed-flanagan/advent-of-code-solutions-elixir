@@ -20,12 +20,7 @@ defmodule Advent.MixProject do
 
   defp deps do
     [
-      # {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:credo,
-       git: "https://github.com/rrrene/credo.git",
-       tag: "b9d99da01b8c9a881d7ade5630c553623d31b503",
-       only: [:dev, :test],
-       runtime: false},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:stream_data, "~> 0.5", only: [:dev, :test]}
     ]
