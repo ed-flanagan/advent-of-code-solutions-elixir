@@ -1,5 +1,5 @@
 defmodule Advent.Y2020.D12Test do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   alias Advent.Y2020.D12
   import D12, only: [part_one: 1, part_two: 1]

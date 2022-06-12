@@ -1,5 +1,5 @@
 defmodule Advent.Y2021.D13Test do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   import ExUnit.CaptureIO
 

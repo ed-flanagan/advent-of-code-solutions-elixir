@@ -1,5 +1,5 @@
 defmodule Advent.Y1970.D01Test do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   import Advent.Y1970.D01, only: [part_one: 1, part_two: 1]
 

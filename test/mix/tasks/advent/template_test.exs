@@ -1,5 +1,5 @@
 defmodule Mix.Tasks.Advent.TemplateTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   @year "1970"
   @day "1"

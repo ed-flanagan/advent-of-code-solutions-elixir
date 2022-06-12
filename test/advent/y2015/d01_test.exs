@@ -1,5 +1,5 @@
 defmodule Advent.Y2015.D01Test do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   alias Advent.Y2015.D01
 
