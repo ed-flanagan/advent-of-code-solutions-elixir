@@ -3,7 +3,7 @@ defmodule Advent.Y2021.D20 do
   https://adventofcode.com/2021/day/20
   """
 
-  use Bitwise
+  import Bitwise
 
   @typep point :: {integer(), integer()}
   @typep pixel :: 0 | 1

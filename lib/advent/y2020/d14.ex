@@ -3,7 +3,7 @@ defmodule Advent.Y2020.D14 do
   https://adventofcode.com/2020/day/14
   """
 
-  use Bitwise, only_operators: true
+  import Bitwise
 
   @mem_match ~r/mem\[(?<addr>\d+)\]\s+=\s+(?<val>\d+)/
 
