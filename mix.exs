@@ -8,7 +8,7 @@ defmodule Advent.MixProject do
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      dialyzer: [plt_add_apps: [:mix]]
+      dialyzer: dialyzer()
     ]
   end
 
@@ -21,8 +21,15 @@ defmodule Advent.MixProject do
   defp deps do
     [
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:stream_data, "~> 0.5", only: [:dev, :test]}
+    ]
+  end
+
+  defp dialyzer do
+    [
+      list_unused_filters: true,
+      plt_add_apps: [:mix]
     ]
   end
 end
