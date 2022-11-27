@@ -23,7 +23,7 @@ defmodule Advent.Y2020.D12 do
       {"R", value}, {x, y, deg} -> {x, y, rem(deg + value, 360)}
       {"L", value}, {x, y, deg} -> {x, y, rem(360 + deg - value, 360)}
     end)
-    |> (fn {x, y, _} -> manhattan_distance({x, y}) end).()
+    |> then(fn {x, y, _} -> manhattan_distance({x, y}) end)
   end
 
   def part_two(input) do
@@ -48,7 +48,7 @@ defmodule Advent.Y2020.D12 do
       # Move plane
       {"F", value}, {{px, py}, {wx, wy}} -> {{px + wx * value, py + wy * value}, {wx, wy}}
     end)
-    |> (fn {coords, _} -> manhattan_distance(coords) end).()
+    |> then(fn {coords, _} -> manhattan_distance(coords) end)
   end
 
   defp split_instruction(<<action::binary-size(1), value::binary>>) do

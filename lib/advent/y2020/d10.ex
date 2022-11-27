@@ -15,7 +15,7 @@ defmodule Advent.Y2020.D10 do
         _ -> {adptr, n1, n2, n3}
       end
     end)
-    |> (fn {_, num_one, _, num_three} -> num_one * num_three end).()
+    |> then(fn {_, num_one, _, num_three} -> num_one * num_three end)
   end
 
   def part_two(_input) do
