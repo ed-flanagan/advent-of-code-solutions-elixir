@@ -54,9 +54,9 @@ defmodule Advent.Y2021.D06 do
         {{fish, spawn}, {day + 1, fish, spawn}}
     end)
     |> Enum.at(days - 1)
-    |> (fn {fish, spawn} ->
-          Map.merge(fish, spawn, fn _k, v1, v2 -> v1 + v2 end)
-        end).()
+    |> then(fn {fish, spawn} ->
+      Map.merge(fish, spawn, fn _k, v1, v2 -> v1 + v2 end)
+    end)
     |> Map.values()
     |> Enum.sum()
   end
