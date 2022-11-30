@@ -31,9 +31,9 @@ defmodule Advent.Y2020.D05 do
 
       {min, max, sum}
     end)
-    |> (fn {min, max, sum} ->
-          bxor(sum, Enum.reduce(min..max, 0, &bxor/2))
-        end).()
+    |> then(fn {min, max, sum} ->
+      bxor(sum, Enum.reduce(min..max, 0, &bxor/2))
+    end)
 
     # NOTE: this strategy will return the first empty seat and nil if none.
     # However, it requires sorting, so less efficient, but above requires an

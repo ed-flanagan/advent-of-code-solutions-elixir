@@ -7,15 +7,15 @@ defmodule Advent.Y2020.D13 do
     {earliest, ids} =
       input
       |> Enum.to_list()
-      |> (fn [earliest, ids] ->
-            {
-              String.to_integer(earliest),
-              for id <- String.split(ids, ",", trim: true),
-                  id != "x" do
-                String.to_integer(id)
-              end
-            }
-          end).()
+      |> then(fn [earliest, ids] ->
+        {
+          String.to_integer(earliest),
+          for id <- String.split(ids, ",", trim: true),
+              id != "x" do
+            String.to_integer(id)
+          end
+        }
+      end)
 
     ids
     |> Enum.map(fn id ->
@@ -25,9 +25,9 @@ defmodule Advent.Y2020.D13 do
       }
     end)
     |> Enum.min_by(&elem(&1, 1))
-    |> (fn {id, time} ->
-          (time - earliest) * id
-        end).()
+    |> then(fn {id, time} ->
+      (time - earliest) * id
+    end)
   end
 
   def part_two(_input) do

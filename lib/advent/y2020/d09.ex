@@ -16,7 +16,7 @@ defmodule Advent.Y2020.D09 do
     |> find_bad_value(buffer_size)
     |> find_bad_range(values)
     |> Enum.min_max()
-    |> (fn {min, max} -> min + max end).()
+    |> then(fn {min, max} -> min + max end)
   end
 
   defp find_bad_value(values, buffer_size) do
