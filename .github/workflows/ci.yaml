@@ -7,38 +7,38 @@ on:
       - main
 
 jobs:
-  lint:
-    name: Lint
+  test:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: erlef/setup-beam@v1
-        with:
-          elixir-version: '1.13.4'
-          otp-version: '24'
-      - run: mix deps.get --only
-      - run: mix format --check-formatted
-      - run: mix deps.unlock --check-unused
-
-  dialyzer:
-    name: Dialyzer
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
     env:
-      MIX_ENV: test
+      MIX_ENV: 'test'
     steps:
       - uses: actions/checkout@v3
       - id: beam
         uses: erlef/setup-beam@v1
         with:
-          elixir-version: '1.13.4'
-          otp-version: '24'
+          elixir-version: '1.14'
+          otp-version: '25'
+      - id: mix-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            _build
+            deps
+          key: mix-${{ runner.os }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.output.otp-version }}-${{ hashFiles('**/mix.lock') }}
       - id: plt-cache
         uses: actions/cache@v3
         with:
           path: _build/${{env.MIX_ENV}}/dialyxir_*
           key: plt-${{ runner.os }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}
-          restore-keys: plt-${{ runner.os }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}
-      - run: mix deps.get --only
+      - run: mix do deps.get --only, deps.compile
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+      - run: mix format --check-formatted
+      - run: mix credo suggest --strict --format oneline
+      - run: mix deps.unlock --check-unused
+      - run: mix compile --warnings-as-errors
+      - run: mix test --warnings-as-errors
       - name: Create PLTs
         if: steps.plt-cache.outputs.cache-hit != 'true'
         run: mix dialyzer --plt --format github
