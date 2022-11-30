@@ -3,7 +3,7 @@ defmodule Advent.Y2020.D05 do
   https://adventofcode.com/2020/day/5
   """
 
-  use Bitwise
+  import Bitwise
 
   @doc """
   What is the highest seat ID on a boarding pass?

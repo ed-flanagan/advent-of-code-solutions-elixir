@@ -3,7 +3,7 @@ defmodule Advent.Y2021.D16 do
   https://adventofcode.com/2021/day/16
   """
 
-  use Bitwise, only_operators: true
+  import Bitwise
 
   @typep packet :: {integer(), integer(), any(), bitstring()}
 

@@ -3,7 +3,7 @@ defmodule Advent.Y2021.D03 do
   https://adventofcode.com/2021/day/3
   """
 
-  use Bitwise
+  import Bitwise
 
   @doc """
   """
