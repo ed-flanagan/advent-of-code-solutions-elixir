@@ -3,7 +3,7 @@ defmodule Advent.Y2021.D13Test do
 
   import ExUnit.CaptureIO
 
-  import Advent.Y2021.D13, only: [part_one: 1, part_two: 1, print_part_two: 1]
+  import Advent.Y2021.D13, only: [part_one: 1, part_two: 1, print_part_two: 2]
 
   @example_input [
     "6,10",
@@ -64,7 +64,7 @@ defmodule Advent.Y2021.D13Test do
     end
 
     test "prints correctly" do
-      assert capture_io(fn -> print_part_two(part_two(puzzle_input!())) end) == """
+      assert capture_io(fn -> puzzle_input!() |> part_two() |> print_part_two(true) end) == """
              \e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m
              \e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m
              \e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[42m\e[32m#\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m\e[40m\e[30m.\e[0m

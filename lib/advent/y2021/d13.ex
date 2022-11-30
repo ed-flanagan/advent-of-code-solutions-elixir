@@ -40,15 +40,15 @@ defmodule Advent.Y2021.D13 do
     end
   end
 
-  @spec print_part_two([String.t()]) :: :ok
-  def print_part_two(feed) do
+  @spec print_part_two([String.t()], boolean()) :: :ok
+  def print_part_two(feed, emit? \\ IO.ANSI.enabled?()) do
     feed
     |> Enum.map(fn line ->
       line
       |> String.graphemes()
       |> Enum.map_join(fn
-        "#" -> IO.ANSI.format([:green_background, :green, "#"])
-        "." -> IO.ANSI.format([:black_background, :black, "."])
+        "#" -> IO.ANSI.format([:green_background, :green, "#"], emit?)
+        "." -> IO.ANSI.format([:black_background, :black, "."], emit?)
       end)
     end)
     |> Enum.each(&IO.puts/1)
