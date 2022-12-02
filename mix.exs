@@ -22,6 +22,7 @@ defmodule Advent.MixProject do
     [
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:req, "~> 0.3.0"},
       {:stream_data, "~> 0.5", only: [:dev, :test]}
     ]
   end

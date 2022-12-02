@@ -1,27 +1,45 @@
 defmodule Mix.Tasks.Advent.Template do
-  use Mix.Task
+  @shortdoc "Generate code scaffold for a given day"
 
   @moduledoc """
   Generate code scaffold for a given day
 
-      mix advent.template <YYYY> <DD>
+      mix advent.template <YYYY> <DD> [--session TOKEN]
+
+  ## Options
+
+    * `--session` - pass your login session token to
+      retrieve your personal puzzle input
+
+  ## Examples
+
+      $ mix advent.template 2022 12
 
   Will generate the following files:
 
-  * `lib/advent/yYYYY/dDD.ex`
-  * `test/advent/yYYYY/dDD_test.exs`
-  * `priv/puzzle_input/yYYYY/dDD.txt`
+  * `lib/advent/y2022/d12.ex`
+  * `test/advent/y2022/d12_test.exs`
+  * `priv/static/puzzle_input/y2022/d12.txt` (empty)
+
   """
 
-  @shortdoc "Generate code scaffold for a given day"
+  use Mix.Task
 
-  def run([year, day]) do
+  @impl Mix.Task
+  def run([year, day | argv]) do
     [year, day] = date_check(year, day)
-    generate_files(year, day)
+
+    {opts, _, _} = OptionParser.parse(argv, strict: [session: :string])
+
+    generate_files(year, day, opts)
   end
 
-  @spec generate_files(String.t(), String.t()) :: any()
-  defp generate_files(year, day) do
+  # HACK: fix `unknown registry: Req.Finch` error Req throws
+  @requirements ["app.start"]
+  @spec generate_files(String.t(), String.t(), keyword()) :: any()
+  defp generate_files(year, day, opts) do
+    opts = Keyword.validate!(opts, session: nil)
+
     # Create padded day, e.g. 2 -> "02"
     day_padded = String.pad_leading(day, 2, "0")
 
@@ -42,7 +60,18 @@ defmodule Mix.Tasks.Advent.Template do
       )
     )
 
-    Mix.Generator.create_file("priv/puzzle_input/y#{year}/d#{day_padded}.txt", "")
+    puzzle_input =
+      case Keyword.get(opts, :session) do
+        nil ->
+          ""
+
+        session ->
+          Req.get!("https://adventofcode.com/#{year}/day/#{day}/input",
+            headers: [{"Cookie", "session=#{session}"}]
+          ).body
+      end
+
+    Mix.Generator.create_file("priv/puzzle_input/y#{year}/d#{day_padded}.txt", puzzle_input)
   end
 
   # Poor date preconditions:
