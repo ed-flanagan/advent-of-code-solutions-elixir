@@ -30,7 +30,7 @@ Solutions, tests, and input are structured by years and day.
 You can generate a scaffold for a given day by running:
 
 ```
-mix advent.template <YYYY> <dd>
+mix advent.template <YYYY> <dd> [--session <TOKEN>]
 ```
 
 For example, `mix advent.template 2021 7` will generate
@@ -41,6 +41,10 @@ For example, `mix advent.template 2021 7` will generate
   part has one for example input and another for file input
 * `priv/puzzle_input/y2021/d07.txt`. An empty file to copy/paste your puzzle
   input into
+
+The optional `--session` flag takes your web browser session token (you can
+retrieve if you inspect the web page while logged in). If provided, the task
+will attempt to download your input file.
 
 ### Running tests
 
