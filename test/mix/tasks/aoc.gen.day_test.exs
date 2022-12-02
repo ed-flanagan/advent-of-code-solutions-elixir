@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Advent.TemplateTest do
+defmodule Mix.Tasks.Aoc.Gen.DayTest do
   use ExUnit.Case, async: true
 
   setup do
