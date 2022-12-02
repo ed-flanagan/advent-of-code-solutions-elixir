@@ -1,8 +1,5 @@
 defmodule Advent.Y2021.D08Test do
-  use ExUnit.Case, async: true
-
-  import Advent.Y2021.D08
-  import TestHelper
+  use TestHelper
 
   @example_input [
     "be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe",
@@ -17,23 +14,11 @@ defmodule Advent.Y2021.D08Test do
     "gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce"
   ]
 
-  describe "part_one" do
-    test "solves example input" do
-      assert part_one(@example_input) == 26
-    end
-
-    test "solves puzzle input" do
-      assert part_one(puzzle_input()) == 342
-    end
-  end
-
-  describe "part_two" do
-    test "solves example input" do
-      assert part_two(@example_input) == 61_229
-    end
-
-    test "solves puzzle input" do
-      assert part_two(puzzle_input()) == 1_068_933
-    end
-  end
+  aoc_test(
+    example_input: @example_input,
+    p1_example_solution: 26,
+    p2_example_solution: 61_229,
+    p1_solution: 342,
+    p2_solution: 1_068_933
+  )
 end

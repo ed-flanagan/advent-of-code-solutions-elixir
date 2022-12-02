@@ -1,8 +1,5 @@
 defmodule Advent.Y2020.D10Test do
-  use ExUnit.Case, async: true
-
-  import Advent.Y2020.D10
-  import TestHelper
+  use TestHelper
 
   describe "part_one/1" do
     test "solves example input" do
@@ -34,11 +31,6 @@ defmodule Advent.Y2020.D10Test do
       Enum.each(examples, fn {expected, input} ->
         assert part_two(input) == expected
       end)
-    end
-
-    @tag :skip
-    test "solves puzzle input" do
-      assert part_two(puzzle_input()) == 0
     end
   end
 end

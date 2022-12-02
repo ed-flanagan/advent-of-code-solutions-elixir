@@ -16,9 +16,4 @@ defmodule Advent.Y<%= year %>.D<%= day_padded %> do
   def part_two(_input) do
     0
   end
-
-  @spec parse_input(Enumerable.t()) :: any()
-  defp parse_input(input) do
-    input
-  end
 end

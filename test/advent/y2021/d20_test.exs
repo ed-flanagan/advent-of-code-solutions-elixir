@@ -1,8 +1,5 @@
 defmodule Advent.Y2021.D20Test do
-  use ExUnit.Case, async: true
-
-  import Advent.Y2021.D20
-  import TestHelper
+  use TestHelper
 
   @example_input [
     "..#.#..#####.#.#.#.###.##.....###.##.#..###.####..#####..#....#..#..##..##",
@@ -20,23 +17,11 @@ defmodule Advent.Y2021.D20Test do
     "..###"
   ]
 
-  describe "part_one" do
-    test "solves example input" do
-      assert part_one(@example_input) == 35
-    end
-
-    test "solves puzzle input" do
-      assert part_one(puzzle_input()) == 5231
-    end
-  end
-
-  describe "part_two" do
-    test "solves example input" do
-      assert part_two(@example_input) == 3351
-    end
-
-    test "solves puzzle input" do
-      assert part_two(puzzle_input()) == 14_279
-    end
-  end
+  aoc_test(
+    example_input: @example_input,
+    p1_example_solution: 35,
+    p2_example_solution: 3351,
+    p1_solution: 5231,
+    p2_solution: 14_279
+  )
 end

@@ -7,7 +7,7 @@ defmodule Advent.Y2022.D01 do
   Find the Elf carrying the most Calories. How many total Calories is that Elf
   carrying?
   """
-  @spec part_one(Enum.t()) :: integer()
+  @spec part_one(Enumerable.t()) :: integer()
   def part_one(input) do
     input
     |> parse_input()
@@ -18,7 +18,7 @@ defmodule Advent.Y2022.D01 do
   Find the top three Elves carrying the most Calories. How many Calories are
   those Elves carrying in total?
   """
-  @spec part_two(Enum.t()) :: integer()
+  @spec part_two(Enumerable.t()) :: integer()
   def part_two(input) do
     input
     |> parse_input()
@@ -27,7 +27,7 @@ defmodule Advent.Y2022.D01 do
     |> Enum.sum()
   end
 
-  @spec parse_input(Enum.t()) :: Enum.t()
+  @spec parse_input(Enumerable.t()) :: Enumerable.t()
   defp parse_input(input) do
     Stream.chunk_while(
       input,

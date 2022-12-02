@@ -1,8 +1,5 @@
 defmodule Advent.Y2020.D14Test do
-  use ExUnit.Case, async: true
-
-  import Advent.Y2020.D14
-  import TestHelper
+  use TestHelper
 
   @example [
     "mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X",
