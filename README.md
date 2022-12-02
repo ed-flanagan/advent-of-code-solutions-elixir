@@ -30,10 +30,10 @@ Solutions, tests, and input are structured by years and day.
 You can generate a scaffold for a given day by running:
 
 ```
-mix advent.template <YYYY> <dd> [--session <TOKEN>]
+mix aoc.gen.day <YYYY> <dd> [--session <TOKEN>]
 ```
 
-For example, `mix advent.template 2021 7` will generate
+For example, `mix aoc.gen.day 2021 7` will generate
 
 * `lib/advent/y2021/d07.ex`. Has two empty functions `part_one/1` and
   `part_two/1`

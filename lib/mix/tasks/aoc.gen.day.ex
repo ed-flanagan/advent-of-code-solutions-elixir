@@ -1,10 +1,10 @@
-defmodule Mix.Tasks.Advent.Template do
+defmodule Mix.Tasks.Aoc.Gen.Day do
   @shortdoc "Generate code scaffold for a given day"
 
   @moduledoc """
   Generate code scaffold for a given day
 
-      mix advent.template <YYYY> <DD> [--session TOKEN]
+      mix aoc.gen.day <YYYY> <DD> [--session TOKEN]
 
   ## Options
 
@@ -13,7 +13,7 @@ defmodule Mix.Tasks.Advent.Template do
 
   ## Examples
 
-      $ mix advent.template 2022 12
+      $ mix aoc.gen.day 2022 12
 
   Will generate the following files:
 
@@ -45,7 +45,7 @@ defmodule Mix.Tasks.Advent.Template do
 
     Mix.Generator.create_file(
       "lib/advent/y#{year}/d#{day_padded}.ex",
-      EEx.eval_file("priv/templates/advent.template/day.ex.eex",
+      EEx.eval_file("priv/templates/aoc.gen.day/day.ex.eex",
         year: year,
         day: day,
         day_padded: day_padded
@@ -54,7 +54,7 @@ defmodule Mix.Tasks.Advent.Template do
 
     Mix.Generator.create_file(
       "test/advent/y#{year}/d#{day_padded}_test.exs",
-      EEx.eval_file("priv/templates/advent.template/day_test.exs.eex",
+      EEx.eval_file("priv/templates/aoc.gen.day/day_test.exs.eex",
         year: year,
         day_padded: day_padded
       )
