@@ -10,59 +10,72 @@ defmodule Mix.Tasks.Advent.Template do
 
   * `lib/advent/yYYYY/dDD.ex`
   * `test/advent/yYYYY/dDD_test.exs`
-  * `test/advent/yYYYY/support/dDD_input.txt`
+  * `priv/puzzle_input/yYYYY/dDD.txt`
   """
 
   @shortdoc "Generate code scaffold for a given day"
 
   def run([year, day]) do
-    year = String.to_integer(year)
-    day = String.to_integer(day)
-
+    [year, day] = date_check(year, day)
     generate_files(year, day)
   end
 
-  @spec generate_files(integer(), integer()) :: :ok
+  @spec generate_files(String.t(), String.t()) :: any()
   defp generate_files(year, day) do
-    rel_project_root = Path.join([__DIR__, "..", "..", "..", ".."])
-    rel_template_dir = Path.join([__DIR__, "templates"])
-
     # Create padded day, e.g. 2 -> "02"
-    day_padded_str = day |> Integer.to_string() |> String.pad_leading(2, "0")
+    day_padded = String.pad_leading(day, 2, "0")
 
-    # Generate source code template
-    rel_lib_dir = Path.join([rel_project_root, "lib", "advent", "y#{year}"])
-    rel_lib_file = Path.join([rel_lib_dir, "d#{day_padded_str}.ex"])
+    Mix.Generator.create_file(
+      "lib/advent/y#{year}/d#{day_padded}.ex",
+      EEx.eval_file("priv/templates/advent.template/day.ex.eex",
+        year: year,
+        day: day,
+        day_padded: day_padded
+      )
+    )
 
-    if not File.exists?(rel_lib_file) do
-      :ok = File.mkdir_p(rel_lib_dir)
+    Mix.Generator.create_file(
+      "test/advent/y#{year}/d#{day_padded}_test.exs",
+      EEx.eval_file("priv/templates/advent.template/day_test.exs.eex",
+        year: year,
+        day_padded: day_padded
+      )
+    )
 
-      template_file = Path.join([rel_template_dir, "day.ex.eex"])
-      gen_out = EEx.eval_file(template_file, year: year, day: day, day_padded: day_padded_str)
-      :ok = File.write(rel_lib_file, gen_out)
-    end
+    Mix.Generator.create_file("priv/puzzle_input/y#{year}/d#{day_padded}.txt", "")
+  end
 
-    # Generate test file
-    rel_test_dir = Path.join([rel_project_root, "test", "advent", "y#{year}"])
-    rel_test_file = Path.join([rel_test_dir, "d#{day_padded_str}_test.exs"])
+  # Poor date preconditions:
+  #   * We check for year range to avoid making impossible requests to API
+  #   * We check for day range for the same reason
+  #   * However, this doesn't prevent usage a given year _before_ December
+  # Normalizes the string numbers passed, e.g. "02" -> "2"
+  @spec date_check(String.t(), String.t()) :: [String.t()]
+  defp date_check(year, day) do
+    year =
+      case Integer.parse(year) do
+        {year, ""} ->
+          current_year = Date.utc_today().year
 
-    if not File.exists?(rel_test_file) do
-      :ok = File.mkdir_p(rel_test_dir)
+          unless year in 2015..current_year,
+            do: Mix.raise("#{year} is not between 2015-#{current_year}")
 
-      template_file = Path.join([rel_template_dir, "day_test.exs.eex"])
-      gen_out = EEx.eval_file(template_file, year: year, day_padded: day_padded_str)
-      :ok = File.write(rel_test_file, gen_out)
-    end
+          year
 
-    # "Touch" input file
-    rel_test_support_dir = Path.join([rel_test_dir, "support"])
-    rel_test_input_file = Path.join([rel_test_support_dir, "d#{day_padded_str}_input.txt"])
+        _ ->
+          Mix.raise("#{year} is not a valid integer")
+      end
 
-    if not File.exists?(rel_test_input_file) do
-      :ok = File.mkdir_p(rel_test_support_dir)
-      :ok = File.write(rel_test_input_file, [])
-    end
+    day =
+      case Integer.parse(day) do
+        {day, ""} ->
+          unless day in 1..25, do: Mix.raise("#{day} needs to be 1-25")
+          day
 
-    :ok
+        _ ->
+          Mix.raise("#{day} is not a valid integer")
+      end
+
+    Enum.map([year, day], &Integer.to_string/1)
   end
 end

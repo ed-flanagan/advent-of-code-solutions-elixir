@@ -1,7 +1,8 @@
 defmodule Advent.Y2021.D14Test do
   use ExUnit.Case, async: true
 
-  import Advent.Y2021.D14, only: [part_one: 1, part_two: 1]
+  import Advent.Y2021.D14
+  import TestHelper
 
   @example_input [
     "NNCB",
@@ -30,7 +31,7 @@ defmodule Advent.Y2021.D14Test do
     end
 
     test "solves puzzle input" do
-      assert part_one(puzzle_input!()) == 2602
+      assert part_one(puzzle_input()) == 2602
     end
   end
 
@@ -40,14 +41,7 @@ defmodule Advent.Y2021.D14Test do
     end
 
     test "solves puzzle input" do
-      assert part_two(puzzle_input!()) == 2_942_885_922_173
+      assert part_two(puzzle_input()) == 2_942_885_922_173
     end
-  end
-
-  @spec puzzle_input!() :: Enumerable.t()
-  defp puzzle_input! do
-    Path.join([__DIR__, "support", "d14_input.txt"])
-    |> File.stream!()
-    |> Stream.map(&String.trim/1)
   end
 end

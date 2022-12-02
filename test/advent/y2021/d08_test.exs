@@ -1,7 +1,8 @@
 defmodule Advent.Y2021.D08Test do
   use ExUnit.Case, async: true
 
-  import Advent.Y2021.D08, only: [part_one: 1, part_two: 1]
+  import Advent.Y2021.D08
+  import TestHelper
 
   @example_input [
     "be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe",
@@ -22,7 +23,7 @@ defmodule Advent.Y2021.D08Test do
     end
 
     test "solves puzzle input" do
-      assert part_one(puzzle_input!()) == 342
+      assert part_one(puzzle_input()) == 342
     end
   end
 
@@ -32,14 +33,7 @@ defmodule Advent.Y2021.D08Test do
     end
 
     test "solves puzzle input" do
-      assert part_two(puzzle_input!()) == 1_068_933
+      assert part_two(puzzle_input()) == 1_068_933
     end
-  end
-
-  @spec puzzle_input!() :: Enumerable.t()
-  defp puzzle_input! do
-    Path.join([__DIR__, "support", "d08_input.txt"])
-    |> File.stream!()
-    |> Stream.map(&String.trim/1)
   end
 end

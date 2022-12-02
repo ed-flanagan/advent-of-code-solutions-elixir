@@ -1,8 +1,8 @@
 defmodule Advent.Y2020.D05Test do
   use ExUnit.Case, async: true
 
-  alias Advent.Y2020.D05
-  import D05, only: [part_one: 1, part_two: 1]
+  import Advent.Y2020.D05
+  import TestHelper
 
   describe "part_one/1" do
     test "solves example input" do
@@ -12,23 +12,17 @@ defmodule Advent.Y2020.D05Test do
         "BBFFBBFRLL"
       ]
 
-      assert 820 == part_one(example)
+      assert part_one(example) == 820
     end
 
     test "solves puzzle input" do
-      assert 901 == part_one(puzzle_input!())
+      assert part_one(puzzle_input()) == 901
     end
   end
 
   describe "part_two/1" do
     test "solves puzzle input" do
-      assert 661 == part_two(puzzle_input!())
+      assert part_two(puzzle_input()) == 661
     end
-  end
-
-  defp puzzle_input! do
-    Path.join([__DIR__, "support", "d05_input.txt"])
-    |> File.stream!()
-    |> Stream.map(&String.trim/1)
   end
 end

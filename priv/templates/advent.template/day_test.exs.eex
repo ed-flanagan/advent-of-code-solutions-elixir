@@ -1,7 +1,8 @@
-defmodule Advent.Y1970.D01Test do
+defmodule Advent.Y<%= year %>.D<%= day_padded %>Test do
   use ExUnit.Case, async: true
 
-  import Advent.Y1970.D01, only: [part_one: 1, part_two: 1]
+  import Advent.Y<%= year %>.D<%= day_padded %>
+  import TestHelper
 
   @example_input []
 
@@ -13,7 +14,7 @@ defmodule Advent.Y1970.D01Test do
 
     @tag :skip
     test "solves puzzle input" do
-      assert part_one(puzzle_input!()) == 0
+      assert part_one(puzzle_input()) == 0
     end
   end
 
@@ -25,14 +26,7 @@ defmodule Advent.Y1970.D01Test do
 
     @tag :skip
     test "solves puzzle input" do
-      assert part_two(puzzle_input!()) == 0
+      assert part_two(puzzle_input()) == 0
     end
-  end
-
-  @spec puzzle_input!() :: Enumerable.t()
-  defp puzzle_input! do
-    Path.join([__DIR__, "support", "d01_input.txt"])
-    |> File.stream!()
-    |> Stream.map(&String.trim/1)
   end
 end

@@ -1,8 +1,8 @@
 defmodule Advent.Y2015.D02Test do
   use ExUnit.Case, async: true
 
-  alias Advent.Y2015.D02
-  import D02, only: [part_one: 1, part_two: 1]
+  import TestHelper
+  import Advent.Y2015.D02
 
   describe "part_one/1" do
     test "solves example input" do
@@ -13,12 +13,12 @@ defmodule Advent.Y2015.D02Test do
       ]
 
       Enum.each(examples, fn {input, expected} ->
-        assert expected == part_one(input)
+        assert part_one(input) == expected
       end)
     end
 
     test "solves puzzle input" do
-      assert 1_598_415 == part_one(puzzle_input!())
+      assert part_one(puzzle_input()) == 1_598_415
     end
   end
 
@@ -31,18 +31,12 @@ defmodule Advent.Y2015.D02Test do
       ]
 
       Enum.each(examples, fn {input, expected} ->
-        assert expected == part_two(input)
+        assert part_two(input) == expected
       end)
     end
 
     test "solves puzzle input" do
-      assert 3_812_909 == part_two(puzzle_input!())
+      assert part_two(puzzle_input()) == 3_812_909
     end
-  end
-
-  defp puzzle_input! do
-    Path.join([__DIR__, "support", "d02_input.txt"])
-    |> File.stream!()
-    |> Stream.map(&String.trim/1)
   end
 end

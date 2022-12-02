@@ -1,8 +1,8 @@
 defmodule Advent.Y2020.D15Test do
   use ExUnit.Case, async: true
 
-  alias Advent.Y2020.D15
-  import D15, only: [part_one: 1, part_two: 1]
+  import Advent.Y2020.D15
+  import TestHelper
 
   describe "part_one/1" do
     test "solves example input" do
@@ -54,10 +54,7 @@ defmodule Advent.Y2020.D15Test do
   end
 
   defp puzzle_input! do
-    [__DIR__, "support", "d15_input.txt"]
-    |> Path.join()
-    |> File.stream!()
-    |> Stream.map(&String.trim/1)
+    puzzle_input()
     |> Enum.at(0)
     |> String.split(",")
     |> Enum.map(&String.to_integer/1)

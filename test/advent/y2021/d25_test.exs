@@ -1,9 +1,9 @@
 defmodule Advent.Y2021.D25Test do
   use ExUnit.Case, async: true
 
-  import ExUnit.CaptureIO
-
   import Advent.Y2021.D25
+  import ExUnit.CaptureIO
+  import TestHelper
 
   @example_input [
     "v...>>.vv>",
@@ -23,7 +23,7 @@ defmodule Advent.Y2021.D25Test do
     end
 
     test "solves puzzle input" do
-      assert part_one(puzzle_input!()) == 456
+      assert part_one(puzzle_input()) == 456
     end
   end
 
@@ -35,7 +35,7 @@ defmodule Advent.Y2021.D25Test do
 
     @tag :skip
     test "solves puzzle input" do
-      assert part_two(puzzle_input!()) == 0
+      assert part_two(puzzle_input()) == 0
     end
   end
 
@@ -58,12 +58,5 @@ defmodule Advent.Y2021.D25Test do
            v.v..>>v.v
            ....v..v.>
            """
-  end
-
-  @spec puzzle_input!() :: Enumerable.t()
-  defp puzzle_input! do
-    Path.join([__DIR__, "support", "d25_input.txt"])
-    |> File.stream!()
-    |> Stream.map(&String.trim/1)
   end
 end

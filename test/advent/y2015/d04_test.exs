@@ -1,8 +1,7 @@
 defmodule Advent.Y2015.D04Test do
   use ExUnit.Case, async: true
 
-  alias Advent.Y2015.D04
-  import D04, only: [part_one: 2, part_two: 2]
+  import Advent.Y2015.D04
 
   describe "part_one/2" do
     test "solves example input" do
@@ -11,30 +10,30 @@ defmodule Advent.Y2015.D04Test do
         {"pqrstuv", 1_048_970}
       ]
       |> Enum.each(fn {input, expected} ->
-        assert expected == part_one(input, 1_200_000)
+        assert part_one(input, 1_200_000) == expected
       end)
     end
 
     test "solves puzzle input" do
-      assert 117_946 == part_one("ckczppom", 150_000)
+      assert part_one(puzzle_input(), 150_000) == 117_946
     end
 
     test "limit works" do
-      assert :error == part_one("deadbeef", 5)
+      assert part_one("deadbeef", 5) == :error
     end
   end
 
   describe "part_two/2" do
     test "solves puzzle input" do
-      assert 3_938_038 == part_two(puzzle_input!(), 4_000_000)
+      assert part_two(puzzle_input(), 4_000_000) == 3_938_038
     end
 
     test "limit works" do
-      assert :error == part_two("deadbeef", 5)
+      assert part_two("deadbeef", 5) == :error
     end
   end
 
-  defp puzzle_input! do
+  defp puzzle_input do
     "ckczppom"
   end
 end

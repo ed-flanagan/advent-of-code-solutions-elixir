@@ -20,11 +20,10 @@ My personal solutions to AoC puzzles, in Elixir.
 
 ## Usage
 
-Solutions and tests are structured by year and day.
-For example, the solution for 2020's day 1 is `lib/advent/y2020/d01.ex` and
-its respective test is `test/advent/y2020/d01_test.exs`. If a puzzle had an
-input file you'll find it under a test `support` directory, e.g.
-`test/y2020/support/d01_input.txt`.
+Solutions, tests, and input are structured by years and day.
+* Solutions: `lib/advent/y<YYYY>/d<DD>.ex`, e.g. `lib/advent/y2020/d01.ex`
+* Tests: `test/advent/y<YYYY>/d<DD>_test.exs`, e.g. `test/advent/y2020/d01_test.exs`
+* Input: `priv/puzzle_input/y<YYYY>/d<DD>.txt`, e.g. `priv/puzzle_input/y2020/d01.txt`
 
 ### Generate code scaffold for a given day
 
@@ -40,8 +39,8 @@ For example, `mix advent.template 2021 7` will generate
   `part_two/1`
 * `test/advent/y2021/d07_test.exs`. Has 4 unit tests, 2 for each part. Each
   part has one for example input and another for file input
-* `test/advent/y2021/support/d07_input.txt`. An empty file to copy/paste your
-  puzzle input into
+* `priv/puzzle_input/y2021/d07.txt`. An empty file to copy/paste your puzzle
+  input into
 
 ### Running tests
 

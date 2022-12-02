@@ -1,7 +1,8 @@
 defmodule Advent.Y2021.D10Test do
   use ExUnit.Case, async: true
 
-  import Advent.Y2021.D10, only: [part_one: 1, part_two: 1]
+  import Advent.Y2021.D10
+  import TestHelper
 
   @example_input [
     "[({(<(())[]>[[{[]{<()<>>",
@@ -22,7 +23,7 @@ defmodule Advent.Y2021.D10Test do
     end
 
     test "solves puzzle input" do
-      assert part_one(puzzle_input!()) == 315_693
+      assert part_one(puzzle_input()) == 315_693
     end
   end
 
@@ -32,14 +33,7 @@ defmodule Advent.Y2021.D10Test do
     end
 
     test "solves puzzle input" do
-      assert part_two(puzzle_input!()) == 1_870_887_234
+      assert part_two(puzzle_input()) == 1_870_887_234
     end
-  end
-
-  @spec puzzle_input!() :: Enumerable.t()
-  defp puzzle_input! do
-    Path.join([__DIR__, "support", "d10_input.txt"])
-    |> File.stream!()
-    |> Stream.map(&String.trim/1)
   end
 end

@@ -5,15 +5,20 @@ defmodule Advent.Y<%= year %>.D<%= day_padded %> do
 
   @doc """
   """
-  @spec part_one(any()) :: any()
+  @spec part_one(Enumerable.t()) :: any()
   def part_one(_input) do
     0
   end
 
   @doc """
   """
-  @spec part_two(any()) :: any()
+  @spec part_two(Enumerable.t()) :: any()
   def part_two(_input) do
     0
+  end
+
+  @spec parse_input(Enumerable.t()) :: any()
+  defp parse_input(input) do
+    input
   end
 end

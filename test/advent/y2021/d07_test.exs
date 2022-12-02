@@ -1,7 +1,8 @@
 defmodule Advent.Y2021.D07Test do
   use ExUnit.Case, async: true
 
-  import Advent.Y2021.D07, only: [part_one: 1, part_two: 1]
+  import Advent.Y2021.D07
+  import TestHelper
 
   @example_input [16, 1, 2, 0, 4, 2, 7, 1, 2, 14]
 
@@ -27,9 +28,7 @@ defmodule Advent.Y2021.D07Test do
 
   @spec puzzle_input!() :: Enumerable.t()
   defp puzzle_input! do
-    Path.join([__DIR__, "support", "d07_input.txt"])
-    |> File.stream!()
-    |> Stream.map(&String.trim/1)
+    puzzle_input()
     |> Enum.at(0)
     |> String.split(",")
     |> Enum.map(&String.to_integer/1)
