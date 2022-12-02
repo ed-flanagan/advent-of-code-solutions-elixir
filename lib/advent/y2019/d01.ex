@@ -6,6 +6,7 @@ defmodule Advent.Y2019.D01 do
   @spec part_one(Enumerable.t()) :: integer()
   def part_one(input) do
     input
+    |> parse_input()
     |> Stream.map(&module_fuel/1)
     |> Enum.sum()
   end
@@ -13,6 +14,7 @@ defmodule Advent.Y2019.D01 do
   @spec part_two(Enumerable.t()) :: integer()
   def part_two(input) do
     input
+    |> parse_input()
     |> Stream.map(fn mass ->
       Stream.unfold(module_fuel(mass), fn
         m when m > 0 -> {m, module_fuel(m)}
@@ -24,4 +26,7 @@ defmodule Advent.Y2019.D01 do
   end
 
   defp module_fuel(mass), do: div(mass, 3) - 2
+
+  @spec parse_input(Enumerable.t()) :: Enumerable.t()
+  defp parse_input(input), do: Stream.map(input, &String.to_integer/1)
 end

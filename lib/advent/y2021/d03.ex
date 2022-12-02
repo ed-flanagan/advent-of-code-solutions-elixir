@@ -9,6 +9,8 @@ defmodule Advent.Y2021.D03 do
   """
   @spec part_one(Enumerable.t()) :: integer()
   def part_one(input) do
+    input = parse_input(input)
+
     mcb = most_common_bits(input)
 
     max_val = (1 <<< length(mcb)) - 1
@@ -22,6 +24,8 @@ defmodule Advent.Y2021.D03 do
   """
   @spec part_two(Enumerable.t()) :: integer()
   def part_two(input) do
+    input = parse_input(input)
+
     find_o2(input) * find_co2(input)
   end
 
@@ -79,5 +83,16 @@ defmodule Advent.Y2021.D03 do
       _, _ -> {:cont, nil}
     end)
     |> Integer.undigits(2)
+  end
+
+  defp parse_input(input) do
+    input
+    |> Stream.map(&String.to_charlist/1)
+    |> Stream.map(fn bits ->
+      Enum.map(bits, fn
+        ?1 -> 1
+        ?0 -> 0
+      end)
+    end)
   end
 end

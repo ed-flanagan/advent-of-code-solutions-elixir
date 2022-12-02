@@ -1,8 +1,5 @@
 defmodule Advent.Y2020.D07Test do
-  use ExUnit.Case, async: true
-
-  import Advent.Y2020.D07
-  import TestHelper
+  use TestHelper
 
   describe "part_one/1" do
     test "solves example input" do

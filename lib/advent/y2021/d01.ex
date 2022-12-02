@@ -10,6 +10,7 @@ defmodule Advent.Y2021.D01 do
   @spec part_one(Enumerable.t()) :: non_neg_integer()
   def part_one(input) do
     input
+    |> Stream.map(&String.to_integer/1)
     |> Stream.chunk_every(2, 1, :discard)
     |> Enum.count(fn [a, b] -> b > a end)
   end
@@ -21,6 +22,7 @@ defmodule Advent.Y2021.D01 do
   @spec part_two(Enumerable.t()) :: non_neg_integer()
   def part_two(input) do
     input
+    |> Stream.map(&String.to_integer/1)
     |> Stream.chunk_every(4, 1, :discard)
     |> Enum.count(fn [a, _, _, b] -> b > a end)
   end

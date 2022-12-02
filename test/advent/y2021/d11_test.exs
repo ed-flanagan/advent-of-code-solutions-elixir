@@ -1,8 +1,5 @@
 defmodule Advent.Y2021.D11Test do
-  use ExUnit.Case, async: true
-
-  import Advent.Y2021.D11
-  import TestHelper
+  use TestHelper
 
   @example_input [
     "5483143223",

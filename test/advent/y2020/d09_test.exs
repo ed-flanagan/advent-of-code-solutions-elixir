@@ -1,8 +1,5 @@
 defmodule Advent.Y2020.D09Test do
-  use ExUnit.Case, async: true
-
-  import Advent.Y2020.D09
-  import TestHelper
+  use TestHelper
 
   @example [
     "35",

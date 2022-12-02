@@ -1,8 +1,5 @@
 defmodule Advent.Y2020.D16Test do
-  use ExUnit.Case, async: true
-
-  import Advent.Y2020.D16
-  import TestHelper
+  use TestHelper
 
   @example_input """
   class: 1-3 or 5-7
@@ -26,18 +23,6 @@ defmodule Advent.Y2020.D16Test do
 
     test "solves puzzle input" do
       assert part_one(puzzle_input!()) == 28_884
-    end
-  end
-
-  describe "part_two/1" do
-    @tag :skip
-    test "solves example input" do
-      assert part_two(@example_input) == 0
-    end
-
-    @tag :skip
-    test "solves puzzle input" do
-      assert part_two(puzzle_input!()) == 0
     end
   end
 

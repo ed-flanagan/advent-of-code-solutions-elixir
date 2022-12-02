@@ -1,21 +1,25 @@
 defmodule Advent.Y2021.D25Test do
-  use ExUnit.Case, async: true
+  use TestHelper
 
-  import Advent.Y2021.D25
   import ExUnit.CaptureIO
-  import TestHelper
 
-  @example_input [
-    "v...>>.vv>",
-    ".vv>>.vv..",
-    ">>.>v>...v",
-    ">>v>>.>.v.",
-    "v>v.vv.v..",
-    ">.>>..v...",
-    ".vv..>.>v.",
-    "v.v..>>v.v",
-    "....v..v.>"
-  ]
+  @example_input ~w(
+    v...>>.vv>
+    .vv>>.vv..
+    >>.>v>...v
+    >>v>>.>.v.
+    v>v.vv.v..
+    >.>>..v...
+    .vv..>.>v.
+    v.v..>>v.v
+    ....v..v.>
+  )
+
+  aoc_test(
+    example_input: @example_input,
+    p1_example_solution: 58,
+    p1_solution: 456
+  )
 
   describe "part_one" do
     test "solves example input" do
@@ -27,18 +31,6 @@ defmodule Advent.Y2021.D25Test do
     end
   end
 
-  describe "part_two" do
-    @tag :skip
-    test "solves example input" do
-      assert part_two(@example_input) == 0
-    end
-
-    @tag :skip
-    test "solves puzzle input" do
-      assert part_two(puzzle_input()) == 0
-    end
-  end
-
   test "print_grid" do
     grid_out =
       capture_io(fn ->
@@ -47,16 +39,6 @@ defmodule Advent.Y2021.D25Test do
         |> print_grid()
       end)
 
-    assert grid_out == """
-           v...>>.vv>
-           .vv>>.vv..
-           >>.>v>...v
-           >>v>>.>.v.
-           v>v.vv.v..
-           >.>>..v...
-           .vv..>.>v.
-           v.v..>>v.v
-           ....v..v.>
-           """
+    assert grid_out == Enum.join(@example_input, "\n") <> "\n"
   end
 end

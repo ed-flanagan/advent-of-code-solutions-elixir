@@ -1,32 +1,13 @@
 defmodule Advent.Y<%= year %>.D<%= day_padded %>Test do
-  use ExUnit.Case, async: true
+  use TestHelper
 
-  import Advent.Y<%= year %>.D<%= day_padded %>
-  import TestHelper
+  @example_input ~w()
 
-  @example_input []
-
-  describe "part_one" do
-    @tag :skip
-    test "solves example input" do
-      assert part_one(@example_input) == 0
-    end
-
-    @tag :skip
-    test "solves puzzle input" do
-      assert part_one(puzzle_input()) == 0
-    end
-  end
-
-  describe "part_two" do
-    @tag :skip
-    test "solves example input" do
-      assert part_two(@example_input) == 0
-    end
-
-    @tag :skip
-    test "solves puzzle input" do
-      assert part_two(puzzle_input()) == 0
-    end
-  end
+  aoc_test(
+    example_input: @example_input,
+    # p1_example_solution: 0,
+    # p1_solution: 0,
+    # p2_example_solution: 0,
+    # p2_solution: 0,
+  )
 end

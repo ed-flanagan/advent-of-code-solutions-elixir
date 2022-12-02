@@ -10,9 +10,10 @@ defmodule Advent.Y2020.D01 do
   together?
   """
   @spec part_one(Enumerable.t()) :: integer()
-  def part_one(values) do
+  def part_one(input) do
     {a, b} =
-      values
+      input
+      |> parse_input()
       |> Enum.to_list()
       |> two_sum(@target)
 
@@ -23,9 +24,10 @@ defmodule Advent.Y2020.D01 do
   What is the product of the three entries that sum to 2020?
   """
   @spec part_two(Enumerable.t()) :: integer()
-  def part_two(values) do
+  def part_two(input) do
     {a, b, c} =
-      values
+      input
+      |> parse_input()
       |> Enum.to_list()
       |> three_sum(@target)
 
@@ -68,4 +70,6 @@ defmodule Advent.Y2020.D01 do
       _ -> do_three_sum(rest, target, MapSet.put(seen, b))
     end
   end
+
+  defp parse_input(input), do: Stream.map(input, &String.to_integer/1)
 end
