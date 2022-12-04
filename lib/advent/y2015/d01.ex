@@ -3,22 +3,35 @@ defmodule Advent.Y2015.D01 do
   https://adventofcode.com/2015/day/1
   """
 
-  @spec part_one(input :: charlist()) :: integer()
+  @doc """
+  To what floor do the instructions take Santa?
+  """
+  @spec part_one(Enumerable.t()) :: integer()
   def part_one(input) do
-    Enum.reduce(input, 0, fn
+    input
+    |> parse_input()
+    |> Enum.reduce(0, fn
       ?(, floor -> floor + 1
       ?), floor -> floor - 1
     end)
   end
 
-  @spec part_two(input :: charlist()) :: integer()
+  @doc """
+  What is the position of the character that causes Santa to first enter the
+  basement?
+  """
+  @spec part_two(Enumerable.t()) :: integer()
   def part_two(input) do
     input
-    |> Stream.with_index()
+    |> parse_input()
+    |> Stream.with_index(1)
     |> Enum.reduce_while(0, fn
-      {?), i}, 0 -> {:halt, i + 1}
+      {?), i}, 0 -> {:halt, i}
       {?), _}, floor -> {:cont, floor - 1}
       {?(, _}, floor -> {:cont, floor + 1}
     end)
   end
+
+  @spec parse_input(Enumerable.t()) :: Enumerable.t()
+  def parse_input(input), do: Stream.flat_map(input, &String.to_charlist/1)
 end
