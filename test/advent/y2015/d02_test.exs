@@ -1,10 +1,7 @@
 defmodule Advent.Y2015.D02Test do
-  use ExUnit.Case, async: true
+  use TestHelper
 
-  import TestHelper
-  import Advent.Y2015.D02
-
-  describe "part_one/1" do
+  describe "part one" do
     test "solves example input" do
       examples = [
         {["4x3x2"], 58},
@@ -22,7 +19,7 @@ defmodule Advent.Y2015.D02Test do
     end
   end
 
-  describe "part_two/1" do
+  describe "part two" do
     test "solves example input" do
       examples = [
         {["4x3x2"], 34},

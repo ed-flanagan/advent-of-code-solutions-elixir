@@ -4,43 +4,36 @@ defmodule Advent.Y2015.D02 do
   """
 
   @doc """
-  * Map the dimensions into the total area needed.
-    The slack area is computed using the smallest two surfaces. We rely on
-    each dimension list to be sorted
-  * Sum the dimensions
+  All numbers in the elves' list are in feet. How many total square feet of
+  wrapping paper should they order?
   """
-  @spec part_one(dimensions :: Enumerable.t()) :: integer()
-  def part_one(dimensions) do
-    stream_dimensions(dimensions)
+  @spec part_one(Enumerable.t()) :: integer()
+  def part_one(input) do
+    input
+    |> parse_input()
     |> Stream.map(fn [x, y, z] ->
-      surface_area = 2 * (x * y + x * z + y * z)
-      slack_area = x * y
-      surface_area + slack_area
+      3 * x * y + 2 * z * (x + y)
     end)
     |> Enum.sum()
   end
 
   @doc """
-  * Map each dimension set into the minimum ribbon length. We rely on the
-    sorted values again
-  * Sum ribbon lengths
+  How many total feet of ribbon should they order?
   """
-  @spec part_two(dimensions :: Enumerable.t()) :: integer()
-  def part_two(dimensions) do
-    stream_dimensions(dimensions)
+  @spec part_two(Enumerable.t()) :: integer()
+  def part_two(input) do
+    input
+    |> parse_input()
     |> Stream.map(fn [x, y, z] ->
-      wrap = 2 * (x + y)
-      bow = x * y * z
-      wrap + bow
+      2 * (x + y) + x * y * z
     end)
     |> Enum.sum()
   end
 
-  # This creates a stream that will map each string dimension into a
-  # sorted list
-  @spec stream_dimensions(dimensions :: Enumerable.t()) :: Enumerable.t()
-  defp stream_dimensions(dimensions) do
-    dimensions
+  # This creates a stream that will map each set of dimensions into a sorted list
+  @spec parse_input(Enumerable.t()) :: Enumerable.t()
+  defp parse_input(input) do
+    input
     |> Stream.map(&String.split(&1, "x"))
     |> Stream.map(fn d ->
       Enum.map(d, &String.to_integer/1)
