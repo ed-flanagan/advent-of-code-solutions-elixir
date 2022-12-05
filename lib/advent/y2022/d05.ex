@@ -67,9 +67,7 @@ defmodule Advent.Y2022.D05 do
       Map.update(crates, to, [], &(grab(to_move, crane) ++ &1))
     end)
     |> Enum.sort()
-    |> Enum.reduce("", fn {_, [c | _]}, acc ->
-      acc <> c
-    end)
+    |> Enum.map_join(fn {_, [c | _]} -> c end)
   end
 
   @spec grab([String.t()], :"9000" | :"9001") :: [String.t()]
