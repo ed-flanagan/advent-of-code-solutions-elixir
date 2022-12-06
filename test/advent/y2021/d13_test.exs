@@ -30,24 +30,32 @@ defmodule Advent.Y2021.D13Test do
   aoc_test(
     example_input: @example_input,
     p1_example_solution: 17,
-    p1_solution: 788,
-    p2_example_solution: [
-      "#####",
-      "#...#",
-      "#...#",
-      "#...#",
-      "#####"
-    ],
-    # KJBKEUBG
-    p2_solution: [
-      "#..#...##.###..#..#.####.#..#.###...##.",
-      "#.#.....#.#..#.#.#..#....#..#.#..#.#..#",
-      "##......#.###..##...###..#..#.###..#...",
-      "#.#.....#.#..#.#.#..#....#..#.#..#.#.##",
-      "#.#..#..#.#..#.#.#..#....#..#.#..#.#..#",
-      "#..#..##..###..#..#.####..##..###...###"
-    ]
+    p1_solution: 788
   )
+
+  describe "part two" do
+    test "solves example input" do
+      assert part_two(@example_input) == [
+               "#####",
+               "#...#",
+               "#...#",
+               "#...#",
+               "#####"
+             ]
+    end
+
+    test "solves puzzle input" do
+      # KJBKEUBG
+      assert part_two(puzzle_input()) == [
+               "#..#...##.###..#..#.####.#..#.###...##.",
+               "#.#.....#.#..#.#.#..#....#..#.#..#.#..#",
+               "##......#.###..##...###..#..#.###..#...",
+               "#.#.....#.#..#.#.#..#....#..#.#..#.#.##",
+               "#.#..#..#.#..#.#.#..#....#..#.#..#.#..#",
+               "#..#..##..###..#..#.####..##..###...###"
+             ]
+    end
+  end
 
   test "prints correctly" do
     assert capture_io(fn -> puzzle_input() |> part_two() |> print_part_two(true) end) == """

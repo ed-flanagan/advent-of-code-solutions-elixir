@@ -53,30 +53,48 @@ defmodule TestHelper do
     p2_solution = Keyword.fetch!(opts, :p2_solution)
 
     quote do
-      describe "part one" do
-        if unquote(p1_example_solution) != nil do
-          test "solves example input" do
-            assert part_one(unquote(example_input)) == unquote(p1_example_solution)
+      if unquote(p1_example_solution) != nil || unquote(p1_solution) != nil do
+        describe "part one" do
+          if unquote(p1_example_solution) != nil do
+            test "solves example input" do
+              if is_list(unquote(p1_example_solution)) do
+                Enum.zip(unquote(example_input), unquote(p1_example_solution))
+                |> Enum.each(fn {input, expected} ->
+                  assert part_one(input) == expected
+                end)
+              else
+                assert part_one(unquote(example_input)) == unquote(p1_example_solution)
+              end
+            end
           end
-        end
 
-        if unquote(p1_solution) != nil do
-          test "solves puzzle input" do
-            assert part_one(puzzle_input()) == unquote(p1_solution)
+          if unquote(p1_solution) != nil do
+            test "solves puzzle input" do
+              assert part_one(puzzle_input()) == unquote(p1_solution)
+            end
           end
         end
       end
 
-      describe "part two" do
-        if unquote(p2_example_solution) != nil do
-          test "solves example input" do
-            assert part_two(unquote(example_input)) == unquote(p2_example_solution)
+      if unquote(p2_example_solution) != nil || unquote(p2_solution) != nil do
+        describe "part two" do
+          if unquote(p2_example_solution) != nil do
+            test "solves example input" do
+              if is_list(unquote(p2_example_solution)) do
+                Enum.zip(unquote(example_input), unquote(p2_example_solution))
+                |> Enum.each(fn {input, expected} ->
+                  assert part_two(input) == expected
+                end)
+              else
+                assert part_two(unquote(example_input)) == unquote(p2_example_solution)
+              end
+            end
           end
-        end
 
-        if unquote(p2_solution) != nil do
-          test "solves puzzle input" do
-            assert part_two(puzzle_input()) == unquote(p2_solution)
+          if unquote(p2_solution) != nil do
+            test "solves puzzle input" do
+              assert part_two(puzzle_input()) == unquote(p2_solution)
+            end
           end
         end
       end
