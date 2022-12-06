@@ -23,6 +23,6 @@ defmodule Advent.Y2022.D06 do
     |> Stream.flat_map(&String.to_charlist/1)
     |> Stream.chunk_every(seq_len, 1, :discard)
     |> Enum.find_index(&(length(Enum.uniq(&1)) == seq_len))
-    |> then(&(&1 + seq_len))
+    |> Kernel.+(seq_len)
   end
 end
