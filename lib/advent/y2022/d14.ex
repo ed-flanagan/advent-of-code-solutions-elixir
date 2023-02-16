@@ -57,7 +57,7 @@ defmodule Advent.Y2022.D14 do
     # Set source
     grid = Map.put(grid, {500, 0}, ?+)
 
-    # Window X values 
+    # Window X values
     {{{min_x, _}, _}, {{max_x, _}, _}} = Enum.min_max_by(grid, fn {{x, _}, _} -> x end)
     {{{_, min_y}, _}, {{_, max_y}, _}} = Enum.min_max_by(grid, fn {{_, y}, _} -> y end)
     grid = Map.new(grid, fn {{x, y}, m} -> {{x - min_x, y}, m} end)
@@ -75,6 +75,19 @@ defmodule Advent.Y2022.D14 do
   end
 
   defp drop_sand(grid, {x, y}, source, bottom \\ nil) do
+    {below, left, right} = get_blocks(grid, {x, y}, bottom)
+
+    cond do
+      below == ?. -> drop_sand(grid, {x, y + 1}, source, bottom)
+      block?(below) && left == ?. -> drop_sand(grid, {x - 1, y + 1}, source, bottom)
+      block?(below) && right == ?. -> drop_sand(grid, {x + 1, y + 1}, source, bottom)
+      grid[source] == ?o -> :full
+      Enum.all?([below, left, right], &block?/1) -> Map.put(grid, {x, y}, ?o)
+      true -> :void
+    end
+  end
+
+  defp get_blocks(grid, {x, y}, bottom) do
     unknown =
       cond do
         bottom == nil -> nil
@@ -86,14 +99,7 @@ defmodule Advent.Y2022.D14 do
     left = Map.get(grid, {x - 1, y + 1}, unknown)
     right = Map.get(grid, {x + 1, y + 1}, unknown)
 
-    cond do
-      below == ?. -> drop_sand(grid, {x, y + 1}, source, bottom)
-      block?(below) && left == ?. -> drop_sand(grid, {x - 1, y + 1}, source, bottom)
-      block?(below) && right == ?. -> drop_sand(grid, {x + 1, y + 1}, source, bottom)
-      grid[source] == ?o -> :full
-      Enum.all?([below, left, right], &block?/1) -> Map.put(grid, {x, y}, ?o)
-      true -> :void
-    end
+    {below, left, right}
   end
 
   defp block?(s), do: s == ?# || s == ?o
