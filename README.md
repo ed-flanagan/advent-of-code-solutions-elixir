@@ -1,5 +1,7 @@
 # 🎄 [Advent of Code](https://adventofcode.com/) solutions in [Elixir](https://elixir-lang.org/) ⚗️
 
+[![Coverage Status](https://coveralls.io/repos/github/ed-flanagan/advent-of-code-solutions-elixir/badge.svg?branch=main)](https://coveralls.io/github/ed-flanagan/advent-of-code-solutions-elixir?branch=main)
+
 My personal solutions to AoC puzzles, in Elixir.
 
 ## Caveats
