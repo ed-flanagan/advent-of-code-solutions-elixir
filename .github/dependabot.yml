@@ -6,4 +6,5 @@ updates:
     schedule:
       interval: "monthly"
     labels:
-      - "mix dependencies"
+      - dependencies
+      - mix
