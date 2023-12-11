@@ -67,11 +67,11 @@ defmodule Mix.Tasks.Aoc.Gen.Day do
 
         session ->
           Req.get!("https://adventofcode.com/#{year}/day/#{day}/input",
-            headers: [
+            headers: %{
               user_agent:
                 "github.com/ed-flanagan/advent-of-code-solutions-elixir by ed@flanagan.xyz",
               cookie: "session=#{session}"
-            ]
+            }
           ).body
       end
 
