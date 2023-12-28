@@ -15,7 +15,7 @@ defmodule Advent.MixProject do
 
   def application do
     [
-      extra_applications: [:eex]
+      extra_applications: [:eex, :logger]
     ]
   end
 
