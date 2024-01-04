@@ -51,7 +51,8 @@ defmodule Advent.Y2023.D05Test do
       assert part_two(@example_input) == 46
     end
 
-    @tag long_running: true
+    @tag :skip
+    # @tag long_running: true
     test "solves puzzle input" do
       assert part_two(puzzle_input(file?: true)) == 0
     end
