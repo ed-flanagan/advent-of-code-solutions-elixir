@@ -38,8 +38,8 @@ defmodule Advent.Y2023.D05Test do
   """
 
   aoc_test(
-    file?: true,
     example_input: @example_input,
+    input_opts: [file?: true],
     p1_example_solution: 35,
     p1_solution: 214_922_730
     # p2_example_solution: 46,
@@ -53,7 +53,7 @@ defmodule Advent.Y2023.D05Test do
 
     @tag long_running: true
     test "solves puzzle input" do
-      assert part_two(puzzle_input(true)) == 0
+      assert part_two(puzzle_input(file?: true)) == 0
     end
   end
 end

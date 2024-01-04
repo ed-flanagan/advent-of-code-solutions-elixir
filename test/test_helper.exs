@@ -14,9 +14,11 @@ defmodule TestHelper do
     end
   end
 
-  @spec puzzle_input() :: Enumerable.t()
-  defmacro puzzle_input(file? \\ false) do
-    if file? do
+  @spec puzzle_input(Keyword.t()) :: Enumerable.t()
+  defmacro puzzle_input(opts) do
+    opts = Keyword.validate!(opts, file?: false)
+
+    if opts[:file?] do
       quote do
         puzzle_input_filename()
         |> File.read!()
@@ -51,7 +53,7 @@ defmodule TestHelper do
         p1_solution: nil,
         p2_example_solution: nil,
         p2_solution: nil,
-        file?: false
+        input_opts: []
       ])
 
     example_input = Keyword.fetch!(opts, :example_input)
@@ -59,6 +61,7 @@ defmodule TestHelper do
     p2_example_solution = Keyword.fetch!(opts, :p2_example_solution)
     p1_solution = Keyword.fetch!(opts, :p1_solution)
     p2_solution = Keyword.fetch!(opts, :p2_solution)
+    input_opts = Keyword.fetch!(opts, :input_opts)
 
     quote do
       if unquote(p1_example_solution) != nil || unquote(p1_solution) != nil do
@@ -78,7 +81,7 @@ defmodule TestHelper do
 
           if unquote(p1_solution) != nil do
             test "solves puzzle input" do
-              assert part_one(puzzle_input(file?)) == unquote(p1_solution)
+              assert part_one(puzzle_input(unquote(input_opts))) == unquote(p1_solution)
             end
           end
         end
@@ -101,7 +104,7 @@ defmodule TestHelper do
 
           if unquote(p2_solution) != nil do
             test "solves puzzle input" do
-              assert part_two(puzzle_input(file?)) == unquote(p2_solution)
+              assert part_two(puzzle_input(unquote(input_opts))) == unquote(p2_solution)
             end
           end
         end
