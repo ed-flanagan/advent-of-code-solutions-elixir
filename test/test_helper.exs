@@ -15,7 +15,7 @@ defmodule TestHelper do
   end
 
   @spec puzzle_input(Keyword.t()) :: Enumerable.t()
-  defmacro puzzle_input(opts) do
+  defmacro puzzle_input(opts \\ []) do
     opts = Keyword.validate!(opts, file?: false)
 
     if opts[:file?] do
