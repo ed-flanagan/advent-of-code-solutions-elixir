@@ -15,11 +15,18 @@ defmodule TestHelper do
   end
 
   @spec puzzle_input() :: Enumerable.t()
-  defmacro puzzle_input do
-    quote do
-      puzzle_input_filename()
-      |> File.stream!()
-      |> Stream.map(&String.trim/1)
+  defmacro puzzle_input(file? \\ false) do
+    if file? do
+      quote do
+        puzzle_input_filename()
+        |> File.read!()
+      end
+    else
+      quote do
+        puzzle_input_filename()
+        |> File.stream!()
+        |> Stream.map(&String.trim/1)
+      end
     end
   end
 
@@ -43,7 +50,8 @@ defmodule TestHelper do
         p1_example_solution: nil,
         p1_solution: nil,
         p2_example_solution: nil,
-        p2_solution: nil
+        p2_solution: nil,
+        file?: false
       ])
 
     example_input = Keyword.fetch!(opts, :example_input)
@@ -70,7 +78,7 @@ defmodule TestHelper do
 
           if unquote(p1_solution) != nil do
             test "solves puzzle input" do
-              assert part_one(puzzle_input()) == unquote(p1_solution)
+              assert part_one(puzzle_input(file?)) == unquote(p1_solution)
             end
           end
         end
@@ -93,7 +101,7 @@ defmodule TestHelper do
 
           if unquote(p2_solution) != nil do
             test "solves puzzle input" do
-              assert part_two(puzzle_input()) == unquote(p2_solution)
+              assert part_two(puzzle_input(file?)) == unquote(p2_solution)
             end
           end
         end
