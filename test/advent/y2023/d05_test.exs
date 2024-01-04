@@ -41,8 +41,19 @@ defmodule Advent.Y2023.D05Test do
     file?: true,
     example_input: @example_input,
     p1_example_solution: 35,
-    p1_solution: 214_922_730,
-    p2_example_solution: 46,
-    p2_solution: 0
+    p1_solution: 214_922_730
+    # p2_example_solution: 46,
+    # p2_solution: 0
   )
+
+  describe "part two" do
+    test "solves example input" do
+      assert part_two(@example_input) == 46
+    end
+
+    @tag long_running: true
+    test "solves puzzle input" do
+      assert part_two(puzzle_input(true)) == 0
+    end
+  end
 end
