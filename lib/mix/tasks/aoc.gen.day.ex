@@ -23,6 +23,8 @@ defmodule Mix.Tasks.Aoc.Gen.Day do
 
   """
 
+  require Logger
+
   use Mix.Task
 
   @impl Mix.Task
@@ -34,7 +36,7 @@ defmodule Mix.Tasks.Aoc.Gen.Day do
     generate_files(year, day, opts)
   end
 
-  # HACK: fix `unknown registry: Req.Finch` error Req throws
+  # Fix `unknown registry: Req.Finch` error Req throws
   @requirements ["app.start"]
   @spec generate_files(String.t(), String.t(), keyword()) :: any()
   defp generate_files(year, day, opts) do
@@ -66,31 +68,47 @@ defmodule Mix.Tasks.Aoc.Gen.Day do
           ""
 
         session ->
-          Req.get!("https://adventofcode.com/#{year}/day/#{day}/input",
-            headers: %{
-              user_agent:
-                "github.com/ed-flanagan/advent-of-code-solutions-elixir by ed@flanagan.xyz",
-              cookie: "session=#{session}"
-            }
-          ).body
+          res =
+            Req.get!("https://adventofcode.com/#{year}/day/#{day}/input",
+              # https://www.reddit.com/r/adventofcode/comments/z9dhtd/please_include_your_contact_info_in_the_useragent/
+              headers: %{
+                user_agent:
+                  "github.com/ed-flanagan/advent-of-code-solutions-elixir by ed@flanagan.xyz",
+                cookie: "session=#{session}"
+              }
+            )
+
+          case res.status do
+            200 ->
+              res.body
+
+            _ ->
+              Logger.error(res.body, status_code: res.status)
+              ""
+          end
       end
 
+    # Make an input file regardless if a session toke is provided or not (just
+    # may be empty)
     Mix.Generator.create_file("priv/puzzle_input/y#{year}/d#{day_padded}.txt", puzzle_input)
   end
 
-  # Poor date preconditions:
-  #   * We check for year range to avoid making impossible requests to API
-  #   * We check for day range for the same reason
-  #   * However, this doesn't prevent usage a given year _before_ December
+  # Some (poor) date preconditions:
+  #   * Idea is to avoid making impossible API requests
+  #   * Check for valid year
+  #   * Check for valid day
+  #   * Check if day has occured yet (i.e. not future)
   # Normalizes the string numbers passed, e.g. "02" -> "2"
-  @spec date_check(String.t(), String.t()) :: [String.t()]
-  defp date_check(year, day) do
+  # Note that if you pass in your own date, these checks may not behave as
+  # expected
+  @spec date_check(String.t(), String.t(), DateTime.t()) :: [String.t()]
+  defp date_check(year, day, now \\ DateTime.utc_now()) do
     year =
       case Integer.parse(year) do
         {year, ""} ->
           current_year = Date.utc_today().year
 
-          unless year in 2015..current_year,
+          unless year in 2015..now.year,
             do: Mix.raise("#{year} is not between 2015-#{current_year}")
 
           year
@@ -108,6 +126,14 @@ defmodule Mix.Tasks.Aoc.Gen.Day do
         _ ->
           Mix.raise("#{day} is not a valid integer")
       end
+
+    # Cheating to represent midnight EST/UTC-5
+    # https://adventofcode.com/2023/about
+    {:ok, puzzle_release} = DateTime.new(Date.new!(year, 12, day), ~T[05:00:00], "Etc/UTC")
+
+    if DateTime.before?(now, puzzle_release) do
+      Mix.raise("The date you provided hasn't occured yet.")
+    end
 
     Enum.map([year, day], &Integer.to_string/1)
   end
