@@ -72,8 +72,7 @@ defmodule Advent.Y2023.D04 do
       [] -> nil
       [card | rest] -> {card, gen[card] ++ rest}
     end)
-    |> Enum.to_list()
-    |> length()
+    |> Enum.count()
   end
 
   @spec parse_input(Enumerable.t()) :: Enumerable.t()
