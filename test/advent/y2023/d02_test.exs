@@ -14,6 +14,6 @@ defmodule Advent.Y2023.D02Test do
     p1_example_solution: 8,
     p1_solution: 2176,
     p2_example_solution: 2286,
-    p2_solution: 63700
+    p2_solution: 63_700
   )
 end
