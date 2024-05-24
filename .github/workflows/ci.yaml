@@ -38,7 +38,11 @@ jobs:
       - run: mix credo suggest --strict --format oneline
       - run: mix deps.unlock --check-unused
       - run: mix compile --warnings-as-errors
-      - run: mix test --warnings-as-errors
+      - run: mix test --cover --export-coverage ci --trace --warnings-as-errors
+      - name: Coveralls
+        run: mix coveralls.github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create PLTs
         if: steps.plt-cache.outputs.cache-hit != 'true'
         run: mix dialyzer --plt --format github
