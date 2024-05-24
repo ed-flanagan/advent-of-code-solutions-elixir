@@ -50,7 +50,7 @@ defmodule Advent.Y2021.D12 do
 
   defp do_count_exits(cave_system, cave, seen, max_v, count) do
     seen =
-      if is_small_cave(cave),
+      if small_cave?(cave),
         do: Map.update(seen, cave, 1, &(&1 + 1)),
         else: seen
 
@@ -67,8 +67,8 @@ defmodule Advent.Y2021.D12 do
     |> Enum.sum()
   end
 
-  @spec is_small_cave(cave()) :: boolean()
-  defp is_small_cave(cave) do
+  @spec small_cave?(cave()) :: boolean()
+  defp small_cave?(cave) do
     String.downcase(cave) == cave
   end
 end
