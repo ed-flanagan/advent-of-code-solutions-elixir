@@ -17,7 +17,7 @@ defmodule Advent.Y2015.D04 do
   # String.starts_with? does a binary prefix check, so should still be fast
   # I also wanted to force the use of a hard ceiling to help limit run-away
   # searches
-  defp brute_search_md5_pad(start..stop, key, hash_pad) do
+  defp brute_search_md5_pad(start..stop//_, key, hash_pad) do
     start..stop
     |> Stream.map(&Integer.to_string/1)
     |> Enum.find(fn i ->

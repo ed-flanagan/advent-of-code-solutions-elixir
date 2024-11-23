@@ -30,7 +30,7 @@ defmodule Advent.Y2022.D10 do
       row
       |> Enum.with_index()
       |> Enum.into("", fn
-        {sprite, idx} when idx in (sprite - 1)..(sprite + 1) -> "#"
+        {sprite, idx} when idx in (sprite - 1)..(sprite + 1)//1 -> "#"
         _ -> "."
       end)
     end)

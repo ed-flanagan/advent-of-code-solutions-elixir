@@ -10,7 +10,7 @@ defmodule Advent.Y2022.D04 do
   def part_one(input) do
     input
     |> parse_input()
-    |> Enum.count(fn {r1 = r1s..r1e, r2 = r2s..r2e} ->
+    |> Enum.count(fn {r1 = r1s..r1e//_, r2 = r2s..r2e//_} ->
       (r1s in r2 && r1e in r2) || (r2s in r1 && r2e in r1)
     end)
   end
