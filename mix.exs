@@ -26,7 +26,7 @@ defmodule Advent.MixProject do
       {:excoveralls, "~> 0.15", only: [:test], runtime: false},
       {:nimble_parsec, "~> 1.0"},
       {:req, "~> 0.4.8"},
-      {:stream_data, "~> 0.5", only: [:dev, :test], runtime: false}
+      {:stream_data, "~> 1.1", only: [:dev, :test], runtime: false}
     ]
   end
 
