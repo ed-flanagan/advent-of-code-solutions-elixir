@@ -54,9 +54,9 @@ defmodule Advent.Y2020.D04 do
   defp valid_hgt(<<hgt::binary-size(2), "in">>), do: inbetween(hgt, 59..76)
   defp valid_hgt(_), do: false
 
-  defp inbetween(val, min..max) when is_integer(val) and val in min..max, do: true
+  defp inbetween(val, min..max//_) when is_integer(val) and val in min..max//1, do: true
 
-  defp inbetween(val, min..max) when is_bitstring(val) do
+  defp inbetween(val, min..max//_) when is_bitstring(val) do
     case Integer.parse(val) do
       {val, ""} -> inbetween(val, min..max)
       _ -> false

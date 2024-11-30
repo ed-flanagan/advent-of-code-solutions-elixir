@@ -11,7 +11,7 @@ defmodule Advent.Y2023.D03 do
     {parts, symbols} = parse_input(input)
 
     parts
-    |> Enum.filter(fn {{x_s..x_e, y}, _num} ->
+    |> Enum.filter(fn {{x_s..x_e//_, y}, _num} ->
       {{x1, y1}, {x2, y2}} = {{x_s - 1, y - 1}, {x_e + 1, y + 1}}
 
       for x <- x1..x2,
