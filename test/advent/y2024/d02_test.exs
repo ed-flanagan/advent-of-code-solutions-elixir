@@ -12,8 +12,8 @@ defmodule Advent.Y2024.D02Test do
 
   aoc_test(
     example_input: @example_input,
-    p1_example_solution: 2
-    # p1_solution: 0
+    p1_example_solution: 2,
+    p1_solution: 591
     # p2_example_solution: 0
     # p2_solution: 0
   )
