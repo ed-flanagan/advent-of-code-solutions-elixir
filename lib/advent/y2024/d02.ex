@@ -28,9 +28,6 @@ defmodule Advent.Y2024.D02 do
     safe?(report, op)
   end
 
-  defp safe?([], _op), do: true
-  defp safe?([_], _op), do: true
-
   defp safe?([x, y | rest], op) do
     if op.(x, y) && abs(y - x) in 1..3 do
       safe?([y | rest], op)
@@ -38,6 +35,8 @@ defmodule Advent.Y2024.D02 do
       false
     end
   end
+
+  defp safe?(_, _), do: true
 
   defp tolerant?(report) do
     # Brute force find
