@@ -36,12 +36,10 @@ defmodule Advent.Y2024.D01 do
   @spec parse_input(Enumerable.t()) :: Enumerable.t()
   defp parse_input(input) do
     input
-    |> Enum.map(fn line ->
-      line
-      |> String.split("   ", trim: true)
-      |> Enum.map(&String.to_integer/1)
-      |> List.to_tuple()
-    end)
+    |> Stream.map(&String.trim/1)
+    |> Stream.map(&String.split/1)
+    |> Stream.map(fn p -> Enum.map(p, &String.to_integer/1) end)
+    |> Stream.map(&List.to_tuple/1)
     |> Enum.unzip()
   end
 end
