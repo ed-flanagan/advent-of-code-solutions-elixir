@@ -78,7 +78,7 @@ defmodule Advent.Y2021.D16 do
   end
 
   defp decode_operator(<<1::1, num_packets::11-integer, rest::bitstring>>) do
-    Enum.reduce_while(num_packets..0, {[], rest}, fn
+    Enum.reduce_while(num_packets..0//-1, {[], rest}, fn
       0, {acc, rest} ->
         {:halt, {Enum.reverse(acc), rest}}
 
@@ -101,6 +101,7 @@ defmodule Advent.Y2021.D16 do
   @spec eval_packet(packet()) :: integer()
   defp eval_packet({_version, 4, value, _rest}), do: value
 
+  # credo:disable-for-lines:14 Credo.Check.Refactor.CyclomaticComplexity
   defp eval_packet({_version, type, values, _rest}) do
     values = Enum.map(values, &eval_packet/1)
 

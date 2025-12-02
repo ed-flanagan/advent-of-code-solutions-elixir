@@ -29,7 +29,7 @@ defmodule Mix.Tasks.Aoc.Gen.Day do
 
   @impl Mix.Task
   def run([year, day | argv]) do
-    [year, day] = date_check(year, day)
+    [year, day] = check_date(year, day)
 
     {opts, _, _} = OptionParser.parse(argv, strict: [session: :string])
 
@@ -101,31 +101,10 @@ defmodule Mix.Tasks.Aoc.Gen.Day do
   # Normalizes the string numbers passed, e.g. "02" -> "2"
   # Note that if you pass in your own date, these checks may not behave as
   # expected
-  @spec date_check(String.t(), String.t(), DateTime.t()) :: [String.t()]
-  defp date_check(year, day, now \\ DateTime.utc_now()) do
-    year =
-      case Integer.parse(year) do
-        {year, ""} ->
-          current_year = Date.utc_today().year
-
-          unless year in 2015..now.year,
-            do: Mix.raise("#{year} is not between 2015-#{current_year}")
-
-          year
-
-        _ ->
-          Mix.raise("#{year} is not a valid integer")
-      end
-
-    day =
-      case Integer.parse(day) do
-        {day, ""} ->
-          unless day in 1..25, do: Mix.raise("#{day} needs to be 1-25")
-          day
-
-        _ ->
-          Mix.raise("#{day} is not a valid integer")
-      end
+  @spec check_date(String.t(), String.t(), DateTime.t()) :: [String.t()]
+  defp check_date(year, day, now \\ DateTime.utc_now()) do
+    year = check_year(year, now)
+    day = check_day(day, year)
 
     # Cheating to represent midnight EST/UTC-5
     # https://adventofcode.com/2023/about
@@ -136,5 +115,34 @@ defmodule Mix.Tasks.Aoc.Gen.Day do
     end
 
     Enum.map([year, day], &Integer.to_string/1)
+  end
+
+  defp check_year(year, now) do
+    case Integer.parse(year) do
+      {year, ""} when year not in 2015..now.year//1 ->
+        Mix.raise("#{year} is not between 2015-#{now.year}")
+
+      {year, ""} ->
+        year
+
+      _ ->
+        Mix.raise("#{year} is not a valid integer")
+    end
+  end
+
+  defp check_day(day, year) do
+    case Integer.parse(day) do
+      {day, ""} when year >= 2025 and day not in 1..12 ->
+        Mix.raise("Day (#{day}) needs to be 1-12 (years 2025 and on)")
+
+      {day, ""} when day not in 1..25 ->
+        Mix.raise("Day (#{day}) needs to be 1-25")
+
+      {day, ""} ->
+        day
+
+      _ ->
+        Mix.raise("#{day} is not a valid integer")
+    end
   end
 end

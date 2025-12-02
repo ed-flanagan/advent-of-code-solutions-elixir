@@ -53,10 +53,10 @@ defmodule Advent.Y2022.D08 do
   end
 
   defp tree_lines({dw, dh}, {tx, ty}) do
-    n = for y <- (ty - 1)..0, do: {tx, y}
+    n = for y <- (ty - 1)..0//-1, do: {tx, y}
     s = for y <- (ty + 1)..dh, do: {tx, y}
     e = for x <- (tx + 1)..dw, do: {x, ty}
-    w = for x <- (tx - 1)..0, do: {x, ty}
+    w = for x <- (tx - 1)..0//-1, do: {x, ty}
 
     [n, s, e, w]
   end

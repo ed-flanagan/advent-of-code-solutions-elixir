@@ -36,6 +36,7 @@ defmodule TestHelper do
     end
   end
 
+  # credo:disable-for-lines:65 Credo.Check.Refactor.CyclomaticComplexity
   defmacro aoc_test(opts) do
     opts =
       Keyword.validate!(opts, [
@@ -48,16 +49,17 @@ defmodule TestHelper do
 
     example_input = Keyword.fetch!(opts, :example_input)
     p1_example_solution = Keyword.fetch!(opts, :p1_example_solution)
-    p2_example_solution = Keyword.fetch!(opts, :p2_example_solution)
     p1_solution = Keyword.fetch!(opts, :p1_solution)
+    p2_example_solution = Keyword.fetch!(opts, :p2_example_solution)
     p2_solution = Keyword.fetch!(opts, :p2_solution)
 
-    quote do
+    # res =
+    quote generated: true do
       if unquote(p1_example_solution) != nil || unquote(p1_solution) != nil do
         describe "part one" do
           if unquote(p1_example_solution) != nil do
             test "solves example input" do
-              if is_list(unquote(p1_example_solution)) do
+              if is_list(unquote(example_input)) && is_list(unquote(p1_example_solution)) do
                 Enum.zip(unquote(example_input), unquote(p1_example_solution))
                 |> Enum.each(fn {input, expected} ->
                   assert part_one(input) == expected
@@ -80,7 +82,7 @@ defmodule TestHelper do
         describe "part two" do
           if unquote(p2_example_solution) != nil do
             test "solves example input" do
-              if is_list(unquote(p2_example_solution)) do
+              if is_list(unquote(example_input)) && is_list(unquote(p2_example_solution)) do
                 Enum.zip(unquote(example_input), unquote(p2_example_solution))
                 |> Enum.each(fn {input, expected} ->
                   assert part_two(input) == expected
@@ -99,5 +101,8 @@ defmodule TestHelper do
         end
       end
     end
+
+    # res = Macro.expand_once(expr, __ENV__)
+    # IO.puts(Macro.to_string(res))
   end
 end
