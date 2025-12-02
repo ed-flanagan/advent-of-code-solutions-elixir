@@ -3,6 +3,8 @@ defmodule Advent.Y2022.D14 do
   https://adventofcode.com/2022/day/14
   """
 
+  import Advent.Helpers, only: [fixed_range: 2]
+
   @doc """
   Using your scan, simulate the falling sand. How many units of sand come to
   rest before sand starts flowing into the abyss below?
@@ -49,8 +51,8 @@ defmodule Advent.Y2022.D14 do
         |> Enum.chunk_every(2, 1, :discard)
       end)
       |> Stream.flat_map(fn
-        [[x, y1], [x, y2]] -> Enum.map(y1..y2, fn y -> {{x, y}, ?#} end)
-        [[x1, y], [x2, y]] -> Enum.map(x1..x2, fn x -> {{x, y}, ?#} end)
+        [[x, y1], [x, y2]] -> Enum.map(fixed_range(y1, y2), fn y -> {{x, y}, ?#} end)
+        [[x1, y], [x2, y]] -> Enum.map(fixed_range(x1, x2), fn x -> {{x, y}, ?#} end)
       end)
       |> Map.new()
 

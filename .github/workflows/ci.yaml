@@ -9,41 +9,52 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
+
     env:
       MIX_ENV: 'test'
+
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+
       - id: beam
         uses: erlef/setup-beam@v1
         with:
-          elixir-version: '1.17'
-          otp-version: '27'
+          elixir-version: '1.19'
+          otp-version: '28'
+
       - id: mix-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             _build
             deps
           key: mix-${{ runner.os }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.output.otp-version }}-${{ hashFiles('**/mix.lock') }}
+
       - id: plt-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: _build/${{env.MIX_ENV}}/dialyxir_*
           key: plt-${{ runner.os }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}
+
       - run: mix do deps.get --only, deps.compile
         if: steps.mix-cache.outputs.cache-hit != 'true'
+
       - run: mix format --check-formatted
       - run: mix credo suggest --strict --format oneline
       - run: mix deps.unlock --check-unused
       - run: mix compile --warnings-as-errors
       - run: mix test --cover --export-coverage ci --trace --warnings-as-errors
+
       - name: Coveralls
         run: mix coveralls.github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create PLTs
         if: steps.plt-cache.outputs.cache-hit != 'true'
         run: mix dialyzer --plt --format github
+
       - run: mix dialyzer --format github

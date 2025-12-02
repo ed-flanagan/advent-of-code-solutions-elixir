@@ -11,6 +11,7 @@ defmodule Advent.Y2020.D06 do
     reduce_groups(answers, MapSet.new(?a..?z), &MapSet.intersection/2)
   end
 
+  @spec reduce_groups(Enumerable.t(), MapSet.t(), (MapSet.t(), any() -> MapSet.t())) :: integer()
   defp reduce_groups(answers, init, agg) do
     answers
     |> Stream.chunk_while(

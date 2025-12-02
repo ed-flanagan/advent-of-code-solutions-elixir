@@ -8,7 +8,7 @@ defmodule Advent.Y2017.D01 do
     (input <> String.first(input))
     |> String.graphemes()
     |> Enum.map(&String.to_integer/1)
-    |> sum_pairs
+    |> sum_pairs()
   end
 
   @spec part_two(input :: String.t()) :: integer()
@@ -26,7 +26,7 @@ defmodule Advent.Y2017.D01 do
       |> List.flatten()
 
     [nums, rotated_nums]
-    |> List.zip()
+    |> Enum.zip()
     |> Enum.reduce(0, fn
       {x, x}, sum -> sum + x
       _, sum -> sum

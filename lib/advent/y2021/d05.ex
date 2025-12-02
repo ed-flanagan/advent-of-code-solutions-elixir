@@ -3,6 +3,8 @@ defmodule Advent.Y2021.D05 do
   https://adventofcode.com/2021/day/5
   """
 
+  import Advent.Helpers, only: [fixed_range: 2]
+
   @doc """
   Consider only horizontal and vertical lines. At how many points do at least
   two lines overlap?
@@ -41,9 +43,9 @@ defmodule Advent.Y2021.D05 do
   defp count_overlapping_coords(coords) do
     coords
     |> Stream.flat_map(fn
-      {{x, y1}, {x, y2}} -> Enum.map(y1..y2, fn y -> {x, y} end)
-      {{x1, y}, {x2, y}} -> Enum.map(x1..x2, fn x -> {x, y} end)
-      {{x1, y1}, {x2, y2}} -> Enum.zip(x1..x2, y1..y2)
+      {{x, y1}, {x, y2}} -> Enum.map(fixed_range(y1, y2), fn y -> {x, y} end)
+      {{x1, y}, {x2, y}} -> Enum.map(fixed_range(x1, x2), fn x -> {x, y} end)
+      {{x1, y1}, {x2, y2}} -> Enum.zip(fixed_range(x1, x2), fixed_range(y1, y2))
     end)
     |> Enum.frequencies()
     |> Enum.count(fn {_, count} -> count > 1 end)
