@@ -39,7 +39,7 @@ jobs:
           path: _build/${{env.MIX_ENV}}/dialyxir_*
           key: plt-${{ runner.os }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}
 
-      - run: mix do deps.get --only, deps.compile
+      - run: mix deps.get --only + deps.compile
         if: steps.mix-cache.outputs.cache-hit != 'true'
 
       - run: mix format --check-formatted
