@@ -9,7 +9,8 @@ defmodule Advent.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       dialyzer: dialyzer(),
-      test_coverage: [tool: ExCoveralls]
+      test_coverage: [tool: ExCoveralls],
+      aliases: aliases()
     ]
   end
 
@@ -35,5 +36,21 @@ defmodule Advent.MixProject do
       list_unused_filters: true,
       plt_add_apps: [:mix]
     ]
+  end
+
+  defp aliases do
+    [
+      at: &aoc_test/1
+    ]
+  end
+
+  defp aoc_test([year]) do
+    path = Path.join(["test", "advent", "y#{year}"])
+    Mix.Task.run("test", [path])
+  end
+
+  defp aoc_test([year, day]) do
+    path = Path.join(["test", "advent", "y#{year}", "#{day}.ex"])
+    Mix.Task.run("test", [path])
   end
 end
